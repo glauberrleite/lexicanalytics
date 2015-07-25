@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lexicanalytics.control.controllers.ResultsTTRController">
+   <children>
+      <Label layoutX="104.0" layoutY="31.0" text="&lt;Types&gt;" />
+      <Label layoutX="101.0" layoutY="60.0" text="&lt;Tokens&gt;" />
+      <Label fx:id="types" layoutX="225.0" layoutY="31.0" text="none" />
+      <Label fx:id="tokens" layoutX="225.0" layoutY="60.0" text="none" />
+      <Label layoutX="63.0" layoutY="44.0" text="TTR = " />
+      <Label layoutX="297.0" layoutY="44.0" text=" = " />
+      <Label fx:id="ttr" layoutX="312.0" layoutY="43.0" text="none" />
+      <Label layoutX="191.0" layoutY="45.0" text=" = " />
+      <Label layoutX="142.0" layoutY="4.0" text="Type-Token Ratio" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Line endX="25.0" layoutX="128.0" layoutY="52.0" startX="-25.0" />
+      <Line endX="25.0" layoutX="238.0" layoutY="52.0" startX="-25.0" />
+      <Label layoutX="164.0" layoutY="44.0" text="x 100" />
+      <Label layoutX="270.0" layoutY="45.0" text="x 100" />
+   </children>
+</AnchorPane>
