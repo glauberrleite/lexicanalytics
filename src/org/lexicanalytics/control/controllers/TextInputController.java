@@ -19,6 +19,6 @@ public class TextInputController extends BaseController {
 	
 	@FXML
 	public void analyse(){
-		Analyser.getInstance().analyse(text);
+		Analyser.getInstance().analyse(text.getText());
 	}
 }
