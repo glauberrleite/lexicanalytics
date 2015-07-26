@@ -54,7 +54,7 @@ public class Analyser {
 			text = text.replace("-", "");
 
 			// Remove spaces and general punctuation and put words on an array
-			String words[] = text.trim().split("[\\P{L}\\s]+");
+			String words[] = text.trim().split("[\\P{Alnum}\\s]+");
 
 			numberOfWords = words.length;
 
