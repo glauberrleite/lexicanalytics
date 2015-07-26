@@ -49,12 +49,12 @@ public class Analyser {
 		if ((text != null) && (text.length() != 0)) {
 			numberOfLines = text.split("\n").length;
 
-			// There are some words in brazilian grammar that contains -
-			// character and still counts as a single word
-			text = text.replace("-", "");
+			// There are some words in brazilian grammar that contains - or :
+			// character and still counts as a single word, e.g. "encontrá-la
+			text = text.replaceAll("\\-|\\:", "");
 
 			// Remove spaces and general punctuation and put words on an array
-			String words[] = text.trim().split("[\\P{Alnum}\\s]+");
+			String words[] = text.trim().split("[^\\p{L}&&^\\P{Alnum}]+");
 
 			numberOfWords = words.length;
 
