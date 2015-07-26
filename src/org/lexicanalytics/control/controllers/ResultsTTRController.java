@@ -34,4 +34,10 @@ public class ResultsTTRController extends BaseController{
 		this.ttr.setText(String.format("%.2f", ttr) + "%");
 	}
 	
+	public void cleanFrame(){
+		types.setText("none");
+		tokens.setText("none");
+		ttr.setText("none");
+	}
+	
 }

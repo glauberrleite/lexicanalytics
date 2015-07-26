@@ -1,6 +1,12 @@
 package org.lexicanalytics.control;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,7 +64,7 @@ public class Analyser {
 
 			for (int i = 0; i < numberOfWords; i++) {
 
-				int newValue = 0;
+				int newValue = 1;
 
 				String word = words[i].toLowerCase(); // to make a standard
 
@@ -69,6 +75,9 @@ public class Analyser {
 				occurrences.put(word, newValue);
 
 			}
+
+			// Sort occurrences by value
+			occurrences = sortByComparator(occurrences);
 
 			// Types of words in the text are the keys of occurrences
 			numberOfTypes = occurrences.size();
@@ -102,5 +111,42 @@ public class Analyser {
 		return ttr;
 	}
 
-	
+	/**
+	 * Method to sort a Map by value. In this application, the higher values
+	 * stay on the first positions of the Map. This method is adapted from
+	 * http://www.mkyong.com/java/how-to-sort-a-map-in-java/.
+	 * 
+	 * @param unsortMap
+	 *            Map object to sort
+	 * @return
+	 */
+	private static Map<String, Integer> sortByComparator(
+			Map<String, Integer> unsortMap) {
+
+		// Convert Map to List
+		List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(
+				unsortMap.entrySet());
+
+		// Sort list with comparator, to compare the Map values
+		Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+			public int compare(Map.Entry<String, Integer> o1,
+					Map.Entry<String, Integer> o2) {
+				return (o1.getValue()).compareTo(o2.getValue()) * (-1); // -1 to
+																		// have
+																		// a
+																		// decreasing
+																		// value
+			}
+		});
+
+		// Convert sorted map back to a Map
+		Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+		for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it
+				.hasNext();) {
+			Map.Entry<String, Integer> entry = it.next();
+			sortedMap.put(entry.getKey(), entry.getValue());
+		}
+		return sortedMap;
+	}
+
 }

@@ -1,5 +1,7 @@
 package org.lexicanalytics.control.controllers;
 
+import java.util.Map;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
@@ -21,25 +23,64 @@ public class TextInputController extends BaseController {
 
 	@FXML
 	public void analyse() {
-		Analyser.getInstance().analyse(text.getText());
+		if ((text.getText() != null) && (text.getText().equals("") == false)) {
+			Analyser.getInstance().analyse(text.getText());
+
+			ResultsController resultsController = (ResultsController) Main
+					.getResultsController();
+
+			// Fill General Results
+
+			ResultsGeneralController generalController = (ResultsGeneralController) resultsController
+					.getResultsTypeController(ResultsType.GENERAL);
+
+			generalController.setLines(Analyser.getInstance()
+					.getNumberOfLines());
+			generalController.setWords(Analyser.getInstance()
+					.getNumberOfWords());
+
+			// Fill TTR results
+			ResultsTTRController ttrController = (ResultsTTRController) resultsController
+					.getResultsTypeController(ResultsType.TTR);
+
+			ttrController.setTypes(Analyser.getInstance().getNumberOfTypes());
+			ttrController.setTokens(Analyser.getInstance().getNumberOfTokens());
+			ttrController.setTTR(Analyser.getInstance().getTTR());
+
+			// Fill Occurrences List
+			ResultsOccurrencesController occurrencesController = (ResultsOccurrencesController) resultsController
+					.getResultsTypeController(ResultsType.OCCURRENCES);
+
+			for (Map.Entry<String, Integer> entry : Analyser.getInstance()
+					.getOccurrences().entrySet()) {
+				occurrencesController.addItemToList(entry.getKey(),
+						entry.getValue());
+			}
+
+		} else {
+
+			// Should implement an alert
+
+		}
+	}
+
+	@FXML
+	public void clean() {
+
+		text.setText("");
 
 		ResultsController resultsController = (ResultsController) Main
 				.getResultsController();
 
-		// Fill General Results
+		((ResultsGeneralController) resultsController
+				.getResultsTypeController(ResultsType.GENERAL)).cleanFrame();
 
-		ResultsGeneralController generalController = (ResultsGeneralController) resultsController
-				.getResultsTypeController(ResultsType.GENERAL);
+		((ResultsTTRController) resultsController
+				.getResultsTypeController(ResultsType.TTR)).cleanFrame();
 
-		generalController.setLines(Analyser.getInstance().getNumberOfLines());
-		generalController.setWords(Analyser.getInstance().getNumberOfWords());
+		((ResultsOccurrencesController) resultsController
+				.getResultsTypeController(ResultsType.OCCURRENCES))
+				.cleanFrame();
 
-		// Fill TTR results
-		ResultsTTRController ttrController = (ResultsTTRController) resultsController
-				.getResultsTypeController(ResultsType.TTR);
-
-		ttrController.setTypes(Analyser.getInstance().getNumberOfTypes());
-		ttrController.setTokens(Analyser.getInstance().getNumberOfTokens());
-		ttrController.setTTR(Analyser.getInstance().getTTR());
 	}
 }

@@ -27,4 +27,9 @@ public class ResultsGeneralController extends BaseController{
 		this.words.setText(String.valueOf(words));
 	}
 	
+	public void cleanFrame(){
+		lines.setText("none");
+		words.setText("none");
+	}
+	
 }

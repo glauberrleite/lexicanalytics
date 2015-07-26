@@ -6,7 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lexicanalytics.control.controllers.TextInputController">
    <children>
       <HBox alignment="CENTER" layoutX="90.0" layoutY="67.0" prefHeight="220.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -23,11 +22,16 @@
                </HBox.margin>
             </Label>
             <TextArea fx:id="text" prefHeight="200.0" prefWidth="450.0" />
-            <Button mnemonicParsing="false" onAction="#analyse" text="Analyse">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Button>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#analyse" text="Analyse" />
+                  <Button mnemonicParsing="false" onAction="#clean" text="Clean">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
          </children>
       </HBox>
    </children>

@@ -16,6 +16,7 @@ import org.lexicanalytics.model.BaseController;
 import org.lexicanalytics.model.BaseFrame;
 import org.lexicanalytics.model.ResultsType;
 import org.lexicanalytics.view.ResultsGeneralFrame;
+import org.lexicanalytics.view.ResultsOccurrencesFrame;
 import org.lexicanalytics.view.ResultsTTRFrame;
 
 /**
@@ -32,7 +33,7 @@ public class ResultsController extends BaseController implements Initializable {
 	@FXML
 	public SplitPane splitPane;
 	
-	private BaseFrame general, ttr;
+	private BaseFrame general, ttr, occurrences;
 	
 	private class ComboBoxListener implements ChangeListener<String> {	
 
@@ -44,6 +45,8 @@ public class ResultsController extends BaseController implements Initializable {
 				splitPane.getItems().set(1, general.getAnchorPane());
 			} else if (newValue.equals("TTR")) {
 				splitPane.getItems().set(1, ttr.getAnchorPane());
+			} else if (newValue.equals("Occurrences")){
+				splitPane.getItems().set(1, occurrences.getAnchorPane());
 			}
 			
 		}
@@ -67,6 +70,9 @@ public class ResultsController extends BaseController implements Initializable {
 			break;
 		case TTR:
 			controller = ttr.getController();
+			break;
+		case OCCURRENCES:
+			controller = occurrences.getController();
 		}
 
 		return controller;
@@ -77,13 +83,14 @@ public class ResultsController extends BaseController implements Initializable {
 
 		// Fill ComboBox
 		ObservableList<String> options = FXCollections.observableArrayList(
-				"General", "TTR");
+				"General", "TTR", "Occurrences");
 
 		resultsComboBox.setItems(options);
 
 		// Instantiate frames
 		ttr = new ResultsTTRFrame();
 		general = new ResultsGeneralFrame();
+		occurrences = new ResultsOccurrencesFrame();
 		
 		// Listener to the ComboBox
 		resultsComboBox.valueProperty().addListener(new ComboBoxListener());
