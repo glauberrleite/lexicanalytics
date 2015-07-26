@@ -51,7 +51,7 @@
                   <Label text="Glauber Rodrigues Leite / grl@ic.ufal.br" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <Label text="https://github.com/glauberrleite/lexicanalytics" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <Label text="1.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextArea editable="false" prefHeight="30.0" prefWidth="523.0" text="Lexicanalytics offers a set of functionalities to help linguistic researchers with lexical studies, when they are manipulating and retrieving information of text data." wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2147483647">
+                  <TextArea editable="false" prefHeight="30.0" prefWidth="523.0" text="Lexicanalytics offers a set of functionalities to help linguistics researchers with lexical studies, when they are manipulating and retrieving information from text data." wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2147483647">
                      <GridPane.margin>
                         <Insets right="30.0" />
                      </GridPane.margin>

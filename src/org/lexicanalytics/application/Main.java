@@ -14,8 +14,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Lexicanalytics offer a set of functionalities to linguistics researchers when 
- * it comes to text analysis. Copyright (C) 2015 Glauber Rodrigues Leite
+ * Lexicanalytics offers a set of functionalities to help linguistics researchers
+ * with lexical studies, when they are manipulating and retrieving information 
+ * from text data. Copyright (C) 2015 Glauber Rodrigues Leite
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
