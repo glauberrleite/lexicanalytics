@@ -3,6 +3,7 @@ Lexicanalytics offers a set of functionalities to help linguistics researchers w
 
 ## Building and Distribution
 
+To compile and develop, you'll need at least the JDK 8u40 because of some components. 
 To produce a jar file, there may have alternative ways of doing this, but we used [Eclipse Luna](https://eclipse.org/) and a plugin called [e(fx)clipse](https://www.eclipse.org/efxclipse/index.html) following the steps above:
 
 1.  Within the Project's root directory, locate and open "build.fxbuild" using the IDE;

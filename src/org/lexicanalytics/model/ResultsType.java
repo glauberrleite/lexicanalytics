@@ -1,5 +1,5 @@
 package org.lexicanalytics.model;
 
 public enum ResultsType {
-	GENERAL, TTR, OCCURRENCES, SAVE
+	GENERAL, TTR, OCCURRENCES, REPORT
 }

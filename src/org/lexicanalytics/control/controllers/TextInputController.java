@@ -3,7 +3,9 @@ package org.lexicanalytics.control.controllers;
 import java.util.Map;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 
 import org.lexicanalytics.application.Main;
 import org.lexicanalytics.control.Analyser;
@@ -60,9 +62,20 @@ public class TextInputController extends BaseController {
 						entry.getValue());
 			}
 
+			// Enable report creation
+			((ResultsReportController) resultsController
+					.getResultsTypeController(ResultsType.REPORT))
+					.enableGenerateButton();
+
 		} else {
 
-			// Should implement an alert
+			// Alert in JavaFX 8u40
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Lexicanalytics - Analyser");
+			alert.setHeaderText(null);
+			alert.setContentText("No text input for analysis");
+
+			alert.showAndWait();
 
 		}
 	}
@@ -84,6 +97,11 @@ public class TextInputController extends BaseController {
 		((ResultsOccurrencesController) resultsController
 				.getResultsTypeController(ResultsType.OCCURRENCES))
 				.cleanFrame();
+
+		// Disable report creation
+		((ResultsReportController) resultsController
+				.getResultsTypeController(ResultsType.REPORT))
+				.disableGenerateButton();
 
 	}
 }

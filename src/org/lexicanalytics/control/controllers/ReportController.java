@@ -7,7 +7,9 @@ import java.io.IOException;
 import org.lexicanalytics.application.Main;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -43,12 +45,28 @@ public class ReportController {
 		if (file != null) {
 			try {
 				FileWriter out = new FileWriter(file, true);
-				out.write(reportText.getText());
+
+				// New lines can be different throughout platforms
+				String[] lines = reportText.getText().split("\n");
+
+				for (int i = 0; i < lines.length; i++) {
+					out.write(lines[i]);
+					out.write(System.getProperty("line.separator"));
+				}
 				out.close();
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
+			// Alert in JavaFX 8u40
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText(null);
+			alert.setContentText("Report saved on " + file.getAbsolutePath());
+
+			alert.showAndWait();
+
 		}
 
 	}

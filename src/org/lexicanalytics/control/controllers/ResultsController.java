@@ -77,7 +77,7 @@ public class ResultsController extends BaseController implements Initializable {
 		case OCCURRENCES:
 			controller = occurrences.getController();
 			break;
-		case SAVE:
+		case REPORT:
 			controller = report.getController();
 		}
 

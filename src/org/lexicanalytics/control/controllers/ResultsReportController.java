@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 
 import org.lexicanalytics.application.Main;
 import org.lexicanalytics.control.Analyser;
@@ -19,7 +20,10 @@ import org.lexicanalytics.model.BaseController;
  */
 
 public class ResultsReportController extends BaseController {
-	
+
+	@FXML
+	private Button generateButton;
+
 	@FXML
 	public void generate() {
 		String text = Analyser.getInstance().getInputText();
@@ -48,7 +52,6 @@ public class ResultsReportController extends BaseController {
 			Main.setScene(reportScene);
 		}
 	}
-
 
 	private String getReportText() {
 		String report = newSection("TEXT");
@@ -79,12 +82,13 @@ public class ResultsReportController extends BaseController {
 
 		report += "\n";
 
-		report += "Type-Token Ratio = " + Analyser.getInstance().getTTR();
+		report += "Type-Token Ratio = "
+				+ String.format("%.2f", Analyser.getInstance().getTTR()) + "%";
 
 		report += "\n\n";
 
 		report += newSection("OCCURRENCES");
-		
+
 		for (Map.Entry<String, Integer> entry : Analyser.getInstance()
 				.getOccurrences().entrySet()) {
 			report += entry.getKey() + " - " + entry.getValue() + " times";
@@ -99,5 +103,13 @@ public class ResultsReportController extends BaseController {
 		result += title + "\n";
 		result += "########################\n\n";
 		return result;
+	}
+
+	public void enableGenerateButton() {
+		generateButton.setDisable(false);
+	}
+
+	public void disableGenerateButton() {
+		generateButton.setDisable(true);
 	}
 }
