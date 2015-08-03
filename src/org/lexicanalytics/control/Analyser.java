@@ -51,9 +51,9 @@ public class Analyser {
 
 			// There are some words in brazilian grammar that contains :
 			// character and still counts as a single word, e.g. 01:00
-			text = text.replaceAll("\\:", "");
+			text = text.replaceAll("\\:|\\.|\\,", "");
 
-			// Remove spaces and general punctuation and put words on an array
+			// Remove spaces and general punctuation then put words on an array
 			String words[] = text.trim().split("[^\\p{L}&&^\\P{Alnum}]+");
 
 			numberOfWords = words.length;
