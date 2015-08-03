@@ -23,6 +23,7 @@ public class Analyser {
 	private static Analyser instance;
 
 	// Text results occurrences
+	private String inputText;
 	private int numberOfLines;
 	private int numberOfWords;
 	private Map<String, Integer> occurrences;
@@ -47,6 +48,9 @@ public class Analyser {
 
 	public void analyse(String text) {
 		if ((text != null) && (text.length() != 0)) {
+			// For global accessibility of the analyzed text
+			inputText = text;
+			
 			numberOfLines = text.split("\n").length;
 
 			// There are some words in brazilian grammar that contains :
@@ -109,6 +113,10 @@ public class Analyser {
 
 	public float getTTR() {
 		return ttr;
+	}
+	
+	public String getInputText(){
+		return inputText;
 	}
 
 	/**

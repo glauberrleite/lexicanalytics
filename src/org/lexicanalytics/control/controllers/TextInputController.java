@@ -23,7 +23,7 @@ public class TextInputController extends BaseController {
 
 	@FXML
 	public void analyse() {
-		
+
 		if ((text.getText() != null) && (text.getText().equals("") == false)) {
 			Analyser.getInstance().analyse(text.getText());
 
@@ -51,7 +51,7 @@ public class TextInputController extends BaseController {
 			// Fill Occurrences List
 			ResultsOccurrencesController occurrencesController = (ResultsOccurrencesController) resultsController
 					.getResultsTypeController(ResultsType.OCCURRENCES);
-			
+
 			occurrencesController.cleanFrame();
 
 			for (Map.Entry<String, Integer> entry : Analyser.getInstance()

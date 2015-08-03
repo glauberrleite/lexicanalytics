@@ -43,6 +43,8 @@ public class Main extends Application {
 
 	private static BorderPane rootLayout;
 	private static BaseFrame input, help, results;
+	private static Scene mainScene;
+	private static Stage stage;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -72,6 +74,9 @@ public class Main extends Application {
 			// Starting GUI
 			primaryStage.setScene(scene);
 			primaryStage.show();
+
+			mainScene = scene;
+			stage = primaryStage;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -101,5 +106,13 @@ public class Main extends Application {
 
 	public static BaseController getResultsController() {
 		return results.getController();
+	}
+
+	public static void setScene(Scene scene){
+		stage.setScene(scene);
+	}
+
+	public static void showMain() {
+		stage.setScene(mainScene);
 	}
 }
