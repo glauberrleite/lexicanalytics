@@ -37,7 +37,7 @@ public class ResultsOccurrencesController extends BaseController implements Init
 	public void searchWord() {
 		String word = wordInput.getText().toLowerCase();
 
-		if ((Analyser.getInstance().getOccurrences() != null)
+/*		if ((Analyser.getInstance().getOccurrences() != null)
 				&& (Analyser.getInstance().getOccurrences().containsKey(word))) {
 			
 			int numberOfOccurrences = Analyser.getInstance().getOccurrences()
@@ -49,7 +49,7 @@ public class ResultsOccurrencesController extends BaseController implements Init
 			searchResult.setText("No results for " + word);
 			
 		}
-
+*/
 	}
 
 	public void addItemToList(String word, int occurrencies) {

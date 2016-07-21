@@ -1,16 +1,9 @@
 package org.lexicanalytics.control.controllers;
 
-import java.io.IOException;
-import java.util.Map;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
-import org.lexicanalytics.application.Main;
-import org.lexicanalytics.control.Analyser;
 import org.lexicanalytics.model.BaseController;
 
 /**
@@ -26,7 +19,7 @@ public class ResultsReportController extends BaseController {
 
 	@FXML
 	public void generate() {
-		String text = Analyser.getInstance().getInputText();
+	/*	String text = Analyser.getInstance().getInputText();
 
 		if ((text != null) && (text.equals("") == false)) {
 			Parent report = null;
@@ -50,13 +43,13 @@ public class ResultsReportController extends BaseController {
 			Scene reportScene = new Scene(report, 600, 400);
 
 			Main.setScene(reportScene);
-		}
+		}*/
 	}
 
 	private String getReportText() {
 		String report = newSection("TEXT");
 
-		report += Analyser.getInstance().getInputText();
+		/*report += Analyser.getInstance().getInputText();
 
 		report += "\n\n";
 
@@ -94,7 +87,7 @@ public class ResultsReportController extends BaseController {
 			report += entry.getKey() + " - " + entry.getValue() + " times";
 			report += "\n";
 		}
-
+*/
 		return report;
 	}
 

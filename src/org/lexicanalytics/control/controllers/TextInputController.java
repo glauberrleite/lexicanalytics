@@ -1,16 +1,13 @@
 package org.lexicanalytics.control.controllers;
 
-import java.util.Map;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 
-import org.lexicanalytics.application.Main;
 import org.lexicanalytics.control.Analyser;
 import org.lexicanalytics.model.BaseController;
-import org.lexicanalytics.model.ResultsType;
+import org.lexicanalytics.model.Production;
 
 /**
  * 
@@ -24,58 +21,40 @@ public class TextInputController extends BaseController {
 	private TextArea text;
 
 	@FXML
+	public void next() {
+		
+		if ((text.getText() != null) && (text.getText().equals("") == false)) {
+			
+			Analyser.getInstance().productions.insertProduction(new Production(text.getText()));
+			
+		}  else {
+	
+			showTextAlert();
+
+		}
+		
+		clean();
+		
+	}
+
+	@FXML
 	public void analyse() {
 
 		if ((text.getText() != null) && (text.getText().equals("") == false)) {
-			Analyser.getInstance().analyse(text.getText());
-
-			ResultsController resultsController = (ResultsController) Main
-					.getResultsController();
-
-			// Fill General Results
-
-			ResultsGeneralController generalController = (ResultsGeneralController) resultsController
-					.getResultsTypeController(ResultsType.GENERAL);
-
-			generalController.setLines(Analyser.getInstance()
-					.getNumberOfLines());
-			generalController.setWords(Analyser.getInstance()
-					.getNumberOfWords());
-
-			// Fill TTR results
-			ResultsTTRController ttrController = (ResultsTTRController) resultsController
-					.getResultsTypeController(ResultsType.TTR);
-
-			ttrController.setTypes(Analyser.getInstance().getNumberOfTypes());
-			ttrController.setTokens(Analyser.getInstance().getNumberOfTokens());
-			ttrController.setTTR(Analyser.getInstance().getTTR());
-
-			// Fill Occurrences List
-			ResultsOccurrencesController occurrencesController = (ResultsOccurrencesController) resultsController
-					.getResultsTypeController(ResultsType.OCCURRENCES);
-
-			occurrencesController.cleanFrame();
-
-			for (Map.Entry<String, Integer> entry : Analyser.getInstance()
-					.getOccurrences().entrySet()) {
-				occurrencesController.addItemToList(entry.getKey(),
-						entry.getValue());
-			}
-
-			// Enable report creation
-			((ResultsReportController) resultsController
-					.getResultsTypeController(ResultsType.REPORT))
-					.enableGenerateButton();
-
+			
+			Analyser.getInstance().productions.insertProduction(new Production(text.getText()));
+			
+		} 
+		
+		if (Analyser.getInstance().productions.size() > 0){
+			Analyser.getInstance().analyseAllProductions();
+			
+			for (Production production : Analyser.getInstance().productions.listAll())
+				System.out.println(production);
+			
 		} else {
-
-			// Alert in JavaFX 8u40
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Lexicanalytics - Analyser");
-			alert.setHeaderText(null);
-			alert.setContentText("No text input for analysis");
-
-			alert.showAndWait();
+			
+			showTextAlert();
 
 		}
 	}
@@ -85,23 +64,17 @@ public class TextInputController extends BaseController {
 
 		text.setText("");
 
-		ResultsController resultsController = (ResultsController) Main
-				.getResultsController();
+	}
+	
+	/**
+	 *  Alert in JavaFX available from jdk 8u40 onward
+	 */
+	public void showTextAlert(){
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Lexicanalytics - Analyser");
+		alert.setHeaderText(null);
+		alert.setContentText("No text input for analysis");
 
-		((ResultsGeneralController) resultsController
-				.getResultsTypeController(ResultsType.GENERAL)).cleanFrame();
-
-		((ResultsTTRController) resultsController
-				.getResultsTypeController(ResultsType.TTR)).cleanFrame();
-
-		((ResultsOccurrencesController) resultsController
-				.getResultsTypeController(ResultsType.OCCURRENCES))
-				.cleanFrame();
-
-		// Disable report creation
-		((ResultsReportController) resultsController
-				.getResultsTypeController(ResultsType.REPORT))
-				.disableGenerateButton();
-
+		alert.showAndWait();
 	}
 }

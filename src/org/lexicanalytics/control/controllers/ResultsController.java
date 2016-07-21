@@ -28,6 +28,7 @@ import org.lexicanalytics.view.ResultsTTRFrame;
 
 public class ResultsController extends BaseController implements Initializable {
 
+	/*
 	@FXML
 	public ComboBox<String> resultsComboBox;
 
@@ -54,7 +55,8 @@ public class ResultsController extends BaseController implements Initializable {
 
 		}
 	}
-
+	*/
+	
 	/**
 	 * This method gives the Controller for a screen result, notice that you'll
 	 * need to cast the controller for specific operation, e.g.
@@ -64,7 +66,9 @@ public class ResultsController extends BaseController implements Initializable {
 	 *            A ResultsType enum object representing the type of result
 	 * @return The controller for a resultType
 	 */
+	/*
 	public BaseController getResultsTypeController(ResultsType type) {
+		
 		BaseController controller = null;
 
 		switch (type) {
@@ -82,12 +86,14 @@ public class ResultsController extends BaseController implements Initializable {
 		}
 
 		return controller;
+		
 	}
+	*/
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		// Fill ComboBox
+/*		// Fill ComboBox
 		ObservableList<String> options = FXCollections.observableArrayList(
 				"General", "TTR", "Occurrences", "Report");
 
@@ -103,6 +109,7 @@ public class ResultsController extends BaseController implements Initializable {
 		resultsComboBox.valueProperty().addListener(new ComboBoxListener());
 		resultsComboBox.setValue("General");
 
+*/
 	}
 
 }

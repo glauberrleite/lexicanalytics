@@ -1,9 +1,7 @@
 package org.lexicanalytics.application;
 
-import org.lexicanalytics.model.BaseController;
 import org.lexicanalytics.model.BaseFrame;
 import org.lexicanalytics.view.HelpFrame;
-import org.lexicanalytics.view.ResultsFrame;
 import org.lexicanalytics.view.TextInputFrame;
 
 import javafx.application.Application;
@@ -42,7 +40,7 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 
 	private static BorderPane rootLayout;
-	private static BaseFrame input, help, results;
+	private static BaseFrame input, help;
 	private static Scene mainScene;
 	private static Stage stage;
 
@@ -69,7 +67,6 @@ public class Main extends Application {
 
 			// Shows a pane inside the root pane
 			showTextInput();
-			showResultsPane();
 
 			// Starting GUI
 			primaryStage.setScene(scene);
@@ -96,16 +93,6 @@ public class Main extends Application {
 		if (input == null)
 			input = new TextInputFrame();
 		rootLayout.setCenter(input.getAnchorPane());
-	}
-
-	public static void showResultsPane() {
-		if (results == null)
-			results = new ResultsFrame();
-		rootLayout.setBottom(results.getAnchorPane());
-	}
-
-	public static BaseController getResultsController() {
-		return results.getController();
 	}
 
 	public static void setScene(Scene scene){
