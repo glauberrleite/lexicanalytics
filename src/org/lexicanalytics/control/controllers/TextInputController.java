@@ -55,9 +55,6 @@ public class TextInputController extends BaseController {
 			
 			Main.showResults();
 			
-			for (Production production : Analyser.getInstance().productions.listAll())
-				System.out.println(production);
-			
 		} else {
 			
 			showTextAlert();

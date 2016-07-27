@@ -2,6 +2,7 @@ package org.lexicanalytics.control.controllers;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 import org.lexicanalytics.control.Analyser;
 import org.lexicanalytics.model.BaseController;
@@ -47,13 +49,14 @@ public class ResultsController extends BaseController implements Initializable {
 	private Label productionTTR;
 
 	@FXML
+	private TextField productionWordSearch;
+
+	@FXML
+	private Label productionWordSearchResult;
+
+	@FXML
 	private ListView<String> productionOccurrences;
 
-	/*
-	 * @FXML public SplitPane splitPane;
-	 * 
-	 * private BaseFrame general, ttr, occurrences, report;
-	 */
 	private class ComboBoxListener implements ChangeListener<Production> {
 
 		@Override
@@ -64,10 +67,17 @@ public class ResultsController extends BaseController implements Initializable {
 			productionWords.setText(String.valueOf(newValue.getNumberOfWords()));
 			productionTypes.setText(String.valueOf(newValue.getNumberOfTypes()));
 			productionTokens.setText(String.valueOf(newValue.getNumberOfTokens()));
-			productionTTR.setText(String.valueOf(newValue.getTtr()) + "%");
+			productionTTR.setText(String.format("%.2f", newValue.getTtr()) + "%");
 
 			ObservableList<String> occurrences = FXCollections.observableArrayList();
+
+			for (Map.Entry<String, Integer> entry : newValue.getOccurrences().entrySet()) {
+				occurrences.add(entry.getKey() + " - " + entry.getValue() + " times");
+			}
+
 			productionOccurrences.setItems(occurrences);
+
+			productionWordSearchResult.setText("No search item");
 
 		}
 	}
@@ -87,10 +97,23 @@ public class ResultsController extends BaseController implements Initializable {
 		productionComboBox.setValue(productions.get(0));
 
 	}
-	
+
 	@FXML
-	private void productionWordSearch(){
-		
+	private void productionWordSearch() {
+		String word = productionWordSearch.getText().toLowerCase();
+
+		Map<String, Integer> occurrences = productionComboBox.getValue().getOccurrences();
+
+		if ((occurrences != null) && (occurrences.containsKey(word))) {
+
+			int numberOfOccurrences = occurrences.get(word);
+			productionWordSearchResult.setText(word + " - " + numberOfOccurrences + " times");
+
+		} else {
+
+			productionWordSearchResult.setText("No results for " + word);
+
+		}
 	}
 
 }

@@ -10,6 +10,7 @@ public interface ProductionDAO {
 	void insertProduction(Production production);
 	void deleteProduction(Production production);
 	Production getByIndex(int index);
+	int getIndex(Production production);
 	int size();
 	
 }

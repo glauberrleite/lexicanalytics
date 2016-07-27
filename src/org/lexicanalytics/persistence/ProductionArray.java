@@ -44,4 +44,9 @@ public class ProductionArray implements ProductionDAO {
 		else
 			return null;
 	}
+	
+	@Override
+	public int getIndex(Production production){
+		return productions.indexOf(production);
+	}
 }
