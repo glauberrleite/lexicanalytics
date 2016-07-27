@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 
+import org.lexicanalytics.application.Main;
 import org.lexicanalytics.control.Analyser;
 import org.lexicanalytics.model.BaseController;
 import org.lexicanalytics.model.Production;
@@ -39,7 +40,7 @@ public class TextInputController extends BaseController {
 
 	@FXML
 	public void analyse() {
-
+		
 		if ((text.getText() != null) && (text.getText().equals("") == false)) {
 			
 			Analyser.getInstance().productions.insertProduction(new Production(text.getText()));
@@ -47,7 +48,12 @@ public class TextInputController extends BaseController {
 		} 
 		
 		if (Analyser.getInstance().productions.size() > 0){
+			
+			Main.showProcessing();
+			
 			Analyser.getInstance().analyseAllProductions();
+			
+			Main.showResults();
 			
 			for (Production production : Analyser.getInstance().productions.listAll())
 				System.out.println(production);

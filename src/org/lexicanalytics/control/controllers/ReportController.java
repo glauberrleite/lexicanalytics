@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.lexicanalytics.application.Main;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
@@ -26,7 +24,7 @@ public class ReportController {
 
 	@FXML
 	public void close() {
-		Main.showMain();
+	//	Main.showMain();
 	}
 
 	public void setReportText(String text) {

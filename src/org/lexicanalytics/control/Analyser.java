@@ -8,9 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.lexicanalytics.application.Main;
+import org.lexicanalytics.control.controllers.ProcessingController;
 import org.lexicanalytics.model.Production;
 import org.lexicanalytics.persistence.ProductionDAO;
-import org.lexicanalytics.persistence.ProductionList;
+import org.lexicanalytics.persistence.ProductionArray;
 
 /**
  * Uses Singleton design pattern, so do not create new instances, instead use
@@ -26,9 +28,9 @@ public class Analyser {
 	private static Analyser instance;
 
 	public ProductionDAO productions;
-	
+
 	private Analyser() {
-		productions = new ProductionList();
+		productions = new ProductionArray();
 	}
 
 	public static Analyser getInstance() {
@@ -36,11 +38,23 @@ public class Analyser {
 			instance = new Analyser();
 		return instance;
 	}
-	
-	public void analyseAllProductions(){
-		for (Production production : productions.listAll()){
-			analyse(production);
+
+	public void analyseAllProductions() {
+
+		ProcessingController processingCtrl = (ProcessingController) Main.getProcessingController();
+
+		// for (Production production : productions.listAll()){
+		for (int i = 0; i < productions.size(); i++) {
+
+			processingCtrl.setStatus("Analysing production " + (i + 1) + " of " + productions.size());
+			
+			analyse(productions.getByIndex(i));
+			
+			// Increment progress indicator
+			processingCtrl.addProgress(90 / productions.size());
 		}
+		
+		processingCtrl.setStatus(productions.size() + " production(s) analysed, building graphs");
 	}
 
 	public void analyse(Production production) {
@@ -58,7 +72,7 @@ public class Analyser {
 		production.setNumberOfWords(words.length);
 
 		// For now, number of tokens are defined by the number of words
-		production.setNumberOfTokens(production.getNumberOfWords()); 
+		production.setNumberOfTokens(production.getNumberOfWords());
 
 		// Created a local variable to avoid constant new allocations of Map
 		// instances when calling
@@ -89,7 +103,7 @@ public class Analyser {
 		production.setNumberOfTypes(occurrences.size());
 
 		float ttr = (((float) production.getNumberOfTypes() / (float) production.getNumberOfTokens())) * 100;
-		
+
 		production.setTtr(ttr);
 
 	}

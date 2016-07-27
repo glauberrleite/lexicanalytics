@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.lexicanalytics.model.Production;
 
-public class ProductionList implements ProductionDAO {
+public class ProductionArray implements ProductionDAO {
 
 	private List<Production> productions;
 
-	public ProductionList() {
+	public ProductionArray() {
 		this.productions = new ArrayList<Production>();
 	}
 
@@ -35,5 +35,13 @@ public class ProductionList implements ProductionDAO {
 	@Override
 	public int size() {
 		return productions.size();
+	}
+
+	@Override
+	public Production getByIndex(int index) {
+		if (index < productions.size())
+			return productions.get(index);
+		else
+			return null;
 	}
 }

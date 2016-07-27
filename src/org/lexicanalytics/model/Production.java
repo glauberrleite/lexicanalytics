@@ -103,15 +103,10 @@ public class Production {
 	
 	@Override
 	public String toString(){
-		String output = "Production {\n";
-			
-		output += "Text: '" + this.text + "'\n";
+		String output = "Little production";
 		
-		output += "TTR: "+ this.ttr + "\n";
-		
-		output += "Used word: "+ this.occurrences + "\n";
-		
-		output += "}";
+		if(text.length() >= 25)
+		  output = text.substring(0, 25);
 		
 		return output;
 	}

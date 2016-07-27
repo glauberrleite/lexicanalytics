@@ -1,6 +1,7 @@
 package org.lexicanalytics.control.controllers;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -10,15 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 
+import org.lexicanalytics.control.Analyser;
 import org.lexicanalytics.model.BaseController;
-import org.lexicanalytics.model.BaseFrame;
-import org.lexicanalytics.model.ResultsType;
-import org.lexicanalytics.view.ResultsGeneralFrame;
-import org.lexicanalytics.view.ResultsOccurrencesFrame;
-import org.lexicanalytics.view.ResultsReportFrame;
-import org.lexicanalytics.view.ResultsTTRFrame;
+import org.lexicanalytics.model.Production;
 
 /**
  * 
@@ -28,88 +26,71 @@ import org.lexicanalytics.view.ResultsTTRFrame;
 
 public class ResultsController extends BaseController implements Initializable {
 
+	List<Production> productions;
+
+	@FXML
+	private ComboBox<Production> productionComboBox;
+
+	@FXML
+	private Label productionLines;
+
+	@FXML
+	private Label productionWords;
+
+	@FXML
+	private Label productionTypes;
+
+	@FXML
+	private Label productionTokens;
+
+	@FXML
+	private Label productionTTR;
+
+	@FXML
+	private ListView<String> productionOccurrences;
+
 	/*
-	@FXML
-	public ComboBox<String> resultsComboBox;
-
-	@FXML
-	public SplitPane splitPane;
-
-	private BaseFrame general, ttr, occurrences, report;
-
-	private class ComboBoxListener implements ChangeListener<String> {
+	 * @FXML public SplitPane splitPane;
+	 * 
+	 * private BaseFrame general, ttr, occurrences, report;
+	 */
+	private class ComboBoxListener implements ChangeListener<Production> {
 
 		@Override
-		public void changed(ObservableValue<? extends String> observable,
-				String oldValue, String newValue) {
+		public void changed(ObservableValue<? extends Production> observable, Production oldValue,
+				Production newValue) {
 
-			if (newValue.equals("General")) {
-				splitPane.getItems().set(1, general.getAnchorPane());
-			} else if (newValue.equals("TTR")) {
-				splitPane.getItems().set(1, ttr.getAnchorPane());
-			} else if (newValue.equals("Occurrences")) {
-				splitPane.getItems().set(1, occurrences.getAnchorPane());
-			} else if (newValue.equals("Report")){
-				splitPane.getItems().set(1, report.getAnchorPane());
-			}
+			productionLines.setText(String.valueOf(newValue.getNumberOfLines()));
+			productionWords.setText(String.valueOf(newValue.getNumberOfWords()));
+			productionTypes.setText(String.valueOf(newValue.getNumberOfTypes()));
+			productionTokens.setText(String.valueOf(newValue.getNumberOfTokens()));
+			productionTTR.setText(String.valueOf(newValue.getTtr()) + "%");
+
+			ObservableList<String> occurrences = FXCollections.observableArrayList();
+			productionOccurrences.setItems(occurrences);
 
 		}
 	}
-	*/
-	
-	/**
-	 * This method gives the Controller for a screen result, notice that you'll
-	 * need to cast the controller for specific operation, e.g.
-	 * (ResultsTTRController) getResultsTypeController(ResultsType.TTR);
-	 * 
-	 * @param type
-	 *            A ResultsType enum object representing the type of result
-	 * @return The controller for a resultType
-	 */
-	/*
-	public BaseController getResultsTypeController(ResultsType type) {
-		
-		BaseController controller = null;
-
-		switch (type) {
-		case GENERAL:
-			controller = general.getController();
-			break;
-		case TTR:
-			controller = ttr.getController();
-			break;
-		case OCCURRENCES:
-			controller = occurrences.getController();
-			break;
-		case REPORT:
-			controller = report.getController();
-		}
-
-		return controller;
-		
-	}
-	*/
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-/*		// Fill ComboBox
-		ObservableList<String> options = FXCollections.observableArrayList(
-				"General", "TTR", "Occurrences", "Report");
+		productions = Analyser.getInstance().productions.listAll();
 
-		resultsComboBox.setItems(options);
+		// Fill ComboBox
+		ObservableList<Production> options = FXCollections.observableArrayList(productions);
 
-		// Instantiate frames
-		ttr = new ResultsTTRFrame();
-		general = new ResultsGeneralFrame();
-		occurrences = new ResultsOccurrencesFrame();
-		report = new ResultsReportFrame();
+		productionComboBox.setItems(options);
 
 		// Listener to the ComboBox
-		resultsComboBox.valueProperty().addListener(new ComboBoxListener());
-		resultsComboBox.setValue("General");
+		productionComboBox.valueProperty().addListener(new ComboBoxListener());
+		productionComboBox.setValue(productions.get(0));
 
-*/
+	}
+	
+	@FXML
+	private void productionWordSearch(){
+		
 	}
 
 }

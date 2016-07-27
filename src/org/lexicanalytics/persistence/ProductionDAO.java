@@ -9,6 +9,7 @@ public interface ProductionDAO {
 	List<Production> listAll();
 	void insertProduction(Production production);
 	void deleteProduction(Production production);
+	Production getByIndex(int index);
 	int size();
 	
 }

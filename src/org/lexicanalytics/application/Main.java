@@ -1,7 +1,10 @@
 package org.lexicanalytics.application;
 
+import org.lexicanalytics.model.BaseController;
 import org.lexicanalytics.model.BaseFrame;
 import org.lexicanalytics.view.HelpFrame;
+import org.lexicanalytics.view.ProcessingFrame;
+import org.lexicanalytics.view.ResultsFrame;
 import org.lexicanalytics.view.TextInputFrame;
 
 import javafx.application.Application;
@@ -40,9 +43,7 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 
 	private static BorderPane rootLayout;
-	private static BaseFrame input, help;
-	private static Scene mainScene;
-	private static Stage stage;
+	private static BaseFrame input, help, processing, results;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -71,9 +72,6 @@ public class Main extends Application {
 			// Starting GUI
 			primaryStage.setScene(scene);
 			primaryStage.show();
-
-			mainScene = scene;
-			stage = primaryStage;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,11 +93,23 @@ public class Main extends Application {
 		rootLayout.setCenter(input.getAnchorPane());
 	}
 
-	public static void setScene(Scene scene){
-		stage.setScene(scene);
+	public static void showProcessing(){
+		if (processing == null)
+			processing = new ProcessingFrame();
+		rootLayout.setCenter(processing.getAnchorPane());
 	}
-
-	public static void showMain() {
-		stage.setScene(mainScene);
+	
+	public static void showResults(){
+		if (results == null)
+			results = new ResultsFrame();
+		rootLayout.setCenter(results.getAnchorPane());
+	}
+	
+	public static BaseController getProcessingController(){
+		return processing.getController();
+	}
+	
+	public static BaseController getResultsController(){
+		return results.getController();
 	}
 }
