@@ -3,7 +3,7 @@ package org.lexicanalytics.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.lexicanalytics.control.Analyser;
+import org.lexicanalytics.control.Analyzer;
 
 /**
  * A Production is the entity that represents the text sample and its lexical properties that will 
@@ -106,7 +106,7 @@ public class Production {
 	@Override
 	public String toString(){
 		
-		int index = Analyser.getInstance().productions.getIndex(this) + 1;
+		int index = Analyzer.getInstance().productions.getIndex(this) + 1;
 		String output = "P" + index;
 				
 		return output;

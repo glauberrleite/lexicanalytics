@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-import org.lexicanalytics.control.Analyser;
+import org.lexicanalytics.control.Analyzer;
 import org.lexicanalytics.model.BaseController;
 import org.lexicanalytics.model.Production;
 
@@ -28,11 +28,70 @@ import org.lexicanalytics.model.Production;
 
 public class ResultsController extends BaseController implements Initializable {
 
+	private final String FORMAT = "%.2f";
+	
 	List<Production> productions;
 
 	@FXML
 	private ComboBox<Production> productionComboBox;
+	
+	@FXML
+	private ListView<String> productionOccurrences;
+	
+	@FXML
+	private TextField productionWordSearch;
 
+	// Labels
+	
+	// General Labels
+	
+	@FXML
+	private Label totalLines;
+	
+	@FXML
+	private Label totalWords;
+	
+	@FXML
+	private Label totalTTR;
+	
+	@FXML
+	private Label meanLines;
+	
+	@FXML
+	private Label meanWords;
+	
+	@FXML
+	private Label meanTTR;
+	
+	@FXML
+	private Label medianLines;
+	
+	@FXML
+	private Label medianWords;
+	
+	@FXML
+	private Label medianTTR;
+	
+	@FXML
+	private Label modeLines;
+	
+	@FXML
+	private Label modeWords;
+	
+	@FXML
+	private Label modeTTR;
+	
+	@FXML
+	private Label sdLines;
+	
+	@FXML
+	private Label sdWords;
+	
+	@FXML
+	private Label sdTTR;
+	
+	// Production Labels
+	
 	@FXML
 	private Label productionLines;
 
@@ -49,14 +108,10 @@ public class ResultsController extends BaseController implements Initializable {
 	private Label productionTTR;
 
 	@FXML
-	private TextField productionWordSearch;
-
-	@FXML
 	private Label productionWordSearchResult;
 
-	@FXML
-	private ListView<String> productionOccurrences;
-
+	// End Labels
+		
 	private class ComboBoxListener implements ChangeListener<Production> {
 
 		@Override
@@ -67,7 +122,7 @@ public class ResultsController extends BaseController implements Initializable {
 			productionWords.setText(String.valueOf(newValue.getNumberOfWords()));
 			productionTypes.setText(String.valueOf(newValue.getNumberOfTypes()));
 			productionTokens.setText(String.valueOf(newValue.getNumberOfTokens()));
-			productionTTR.setText(String.format("%.2f", newValue.getTtr()) + "%");
+			productionTTR.setText(String.format(FORMAT, newValue.getTtr()) + "%");
 
 			ObservableList<String> occurrences = FXCollections.observableArrayList();
 
@@ -85,8 +140,35 @@ public class ResultsController extends BaseController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		productions = Analyser.getInstance().productions.listAll();
+		productions = Analyzer.getInstance().productions.listAll();
 
+		// General Tab
+		
+		
+		totalLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalLines));
+		totalWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalWords));
+		totalTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalTTR));
+		
+		meanLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanLines));
+		meanWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanWords));
+		meanTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanTTR));
+		
+		medianLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianLines));
+		medianWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianWords));
+		medianTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianTTR));
+		
+		modeLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeLines));
+		modeWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeWords));
+		modeTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeTTR));
+		
+		sdLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdLines));
+		sdWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdWords));
+		sdTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdTTR));
+		
+		
+		
+		// Production Tab
+		
 		// Fill ComboBox
 		ObservableList<Production> options = FXCollections.observableArrayList(productions);
 

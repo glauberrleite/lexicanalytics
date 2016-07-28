@@ -10,54 +10,69 @@ import java.util.Map;
 
 import org.lexicanalytics.application.Main;
 import org.lexicanalytics.control.controllers.ProcessingController;
+import org.lexicanalytics.model.GeneralAnalysisMeasurements;
 import org.lexicanalytics.model.Production;
 import org.lexicanalytics.persistence.ProductionDAO;
 import org.lexicanalytics.persistence.ProductionArray;
 
 /**
  * Uses Singleton design pattern, so do not create new instances, instead use
- * Analyser.getInstance(); This class offers results for the Lexicanalytics
+ * Analyzer.getInstance(); This class offers results for the Lexicanalytics
  * application.
  * 
  * @author glauberrleite
  *
  */
 
-public class Analyser {
+public class Analyzer {
 
-	private static Analyser instance;
+	private static Analyzer instance;
 
 	public ProductionDAO productions;
+	public GeneralAnalysisMeasurements generalMeasurements;
 
-	private Analyser() {
+	private Analyzer() {
 		productions = new ProductionArray();
 	}
 
-	public static Analyser getInstance() {
+	public static Analyzer getInstance() {
 		if (instance == null)
-			instance = new Analyser();
+			instance = new Analyzer();
 		return instance;
 	}
 
-	public void analyseAllProductions() {
+	public void analyzeAllProductions() {
 
 		ProcessingController processingCtrl = (ProcessingController) Main.getProcessingController();
 
-		// for (Production production : productions.listAll()){
+		// Analyzing each production
 		for (int i = 0; i < productions.size(); i++) {
 
-			processingCtrl.setStatus("Analysing production " + (i + 1) + " of " + productions.size());
+			processingCtrl.setStatus("Analyzing production " + (i + 1) + " of " + productions.size());
 			
-			analyse(productions.getByIndex(i));
+			analyze(productions.getByIndex(i));
 			
 			// Increment progress indicator
-			processingCtrl.addProgress(90 / productions.size());
+			processingCtrl.addProgress(80 / productions.size());
 		}
 		
-		processingCtrl.setStatus(productions.size() + " production(s) analysed, building graphs");
+		processingCtrl.setStatus(productions.size() + " production(s) analyzed, building general analysis");
+		
+		generalMeasurements = new GeneralAnalysisMeasurements();
+		
+		for(Production production : productions.listAll()){
+			generalMeasurements.totalLines += production.getNumberOfLines();
+			generalMeasurements.totalWords += production.getNumberOfWords();
+			generalMeasurements.totalTTR += production.getTtr();
+			
+			generalMeasurements.meanLines += ((float)production.getNumberOfLines() / productions.size());
+			generalMeasurements.meanWords += ((float)production.getNumberOfWords() / productions.size());
+			generalMeasurements.meanTTR += ((float)production.getTtr() / productions.size());
+		}
+		
 	}
 
-	public void analyse(Production production) {
+	public void analyze(Production production) {
 
 		production.setNumberOfLines(production.getText().split("\n").length);
 
