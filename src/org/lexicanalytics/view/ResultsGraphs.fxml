@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lexicanalytics.control.controllers.ResultsGraphsController">
+   <children>
+      <ScrollPane prefHeight="377.0" prefWidth="800.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="377.0" prefWidth="800.0">
+               <children>
+                  <LineChart fx:id="productionChart" layoutX="14.0" layoutY="14.0" prefHeight="332.0" prefWidth="481.0">
+                    <xAxis>
+                      <CategoryAxis label="Production" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+                  <ToggleButton fx:id="wordsButton" layoutX="597.0" layoutY="86.0" mnemonicParsing="false" onAction="#toggleWords" prefHeight="30.0" prefWidth="70.0" selected="true" text="Words" />
+                  <ToggleButton fx:id="linesButton" layoutX="597.0" layoutY="129.0" mnemonicParsing="false" onAction="#toggleLines" prefHeight="30.0" prefWidth="70.0" text="Lines" />
+                  <ToggleButton fx:id="ttrButton" layoutX="597.0" layoutY="174.0" mnemonicParsing="false" onAction="#toggleTTR" prefHeight="30.0" prefWidth="70.0" text="TTR" />
+                  <Label layoutX="565.0" layoutY="53.0" text="Productions analysis" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -70,6 +70,7 @@ public class Analyzer {
 			generalMeasurements.meanTTR += ((float)production.getTtr() / productions.size());
 		}
 		
+		
 	}
 
 	public void analyze(Production production) {

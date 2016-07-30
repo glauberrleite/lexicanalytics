@@ -87,12 +87,11 @@
                               <Font name="System Italic" size="16.0" />
                            </font>
                         </Label>
+                        <Label layoutX="14.0" layoutY="271.0" text="Search Word:" />
+                        <TextField fx:id="generalWordSearch" layoutX="112.0" layoutY="266.0" />
+                        <Button layoutX="295.0" layoutY="266.0" mnemonicParsing="false" onAction="#generalWordSearch" text="Search" />
+                        <Label fx:id="generalWordSearchResult" alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="305.0" prefHeight="16.0" prefWidth="169.0" text="No search item" />
                      </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Graphs">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
             <Tab text="Production">
@@ -175,6 +174,11 @@
                   </AnchorPane>
               </content>
             </Tab>
+          <Tab fx:id="graphsTab" text="Graphs">
+            <content>
+              <AnchorPane maxHeight="377.0" maxWidth="800.0" minHeight="0.0" minWidth="0.0" prefHeight="377.0" prefWidth="800.0" />
+            </content>
+          </Tab>
         </tabs>
       </TabPane>
    </children>

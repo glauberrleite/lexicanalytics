@@ -46,7 +46,7 @@ public class ResultsReportController extends BaseController {
 		}*/
 	}
 
-	private String getReportText() {
+	/*private String getReportText() {
 		String report = newSection("TEXT");
 
 		/*report += Analyser.getInstance().getInputText();
@@ -87,7 +87,6 @@ public class ResultsReportController extends BaseController {
 			report += entry.getKey() + " - " + entry.getValue() + " times";
 			report += "\n";
 		}
-*/
 		return report;
 	}
 
@@ -105,4 +104,5 @@ public class ResultsReportController extends BaseController {
 	public void disableGenerateButton() {
 		generateButton.setDisable(true);
 	}
+	*/
 }

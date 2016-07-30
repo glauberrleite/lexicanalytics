@@ -14,11 +14,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 
 import org.lexicanalytics.control.Analyzer;
 import org.lexicanalytics.model.BaseController;
 import org.lexicanalytics.model.Production;
+import org.lexicanalytics.view.ResultsGraphsFrame;
 
 /**
  * 
@@ -40,6 +42,12 @@ public class ResultsController extends BaseController implements Initializable {
 	
 	@FXML
 	private TextField productionWordSearch;
+	
+	@FXML
+	private TextField generalWordSearch;
+	
+	@FXML
+	private Tab graphsTab;
 
 	// Labels
 	
@@ -89,6 +97,9 @@ public class ResultsController extends BaseController implements Initializable {
 	
 	@FXML
 	private Label sdTTR;
+	
+	@FXML
+	private Label generalWordSearchResult;
 	
 	// Production Labels
 	
@@ -177,6 +188,11 @@ public class ResultsController extends BaseController implements Initializable {
 		// Listener to the ComboBox
 		productionComboBox.valueProperty().addListener(new ComboBoxListener());
 		productionComboBox.setValue(productions.get(0));
+		
+		
+		
+		// Graphs Tab
+		graphsTab.setContent((new ResultsGraphsFrame()).getAnchorPane());
 
 	}
 
@@ -196,6 +212,10 @@ public class ResultsController extends BaseController implements Initializable {
 			productionWordSearchResult.setText("No results for " + word);
 
 		}
+	}
+	
+	@FXML
+	private void generalWordSearch() {
 	}
 
 }
