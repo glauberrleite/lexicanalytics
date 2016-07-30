@@ -49,5 +49,5 @@ public class GeneralAnalysisMeasurements {
 	public float sdWords;
 
 	public float sdTTR;
-
+	
 }

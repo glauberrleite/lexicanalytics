@@ -179,6 +179,11 @@
               <AnchorPane maxHeight="377.0" maxWidth="800.0" minHeight="0.0" minWidth="0.0" prefHeight="377.0" prefWidth="800.0" />
             </content>
           </Tab>
+            <Tab fx:id="reportsTab" text="Reports">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

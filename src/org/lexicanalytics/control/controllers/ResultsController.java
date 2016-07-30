@@ -48,6 +48,9 @@ public class ResultsController extends BaseController implements Initializable {
 	
 	@FXML
 	private Tab graphsTab;
+	
+	@FXML
+	private Tab reportsTab;
 
 	// Labels
 	

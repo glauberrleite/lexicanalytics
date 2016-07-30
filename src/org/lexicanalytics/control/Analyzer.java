@@ -1,5 +1,6 @@
 package org.lexicanalytics.control;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -7,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.lang.Math;
 
 import org.lexicanalytics.application.Main;
 import org.lexicanalytics.control.controllers.ProcessingController;
@@ -49,28 +51,76 @@ public class Analyzer {
 		for (int i = 0; i < productions.size(); i++) {
 
 			processingCtrl.setStatus("Analyzing production " + (i + 1) + " of " + productions.size());
-			
+
 			analyze(productions.getByIndex(i));
-			
+
 			// Increment progress indicator
 			processingCtrl.addProgress(80 / productions.size());
 		}
-		
+
 		processingCtrl.setStatus(productions.size() + " production(s) analyzed, building general analysis");
-		
+
 		generalMeasurements = new GeneralAnalysisMeasurements();
-		
-		for(Production production : productions.listAll()){
+
+		List<Float> linesList = new ArrayList<Float>();
+		List<Float> wordsList = new ArrayList<Float>();
+		List<Float> ttrList = new ArrayList<Float>();
+
+		for (Production production : productions.listAll()) {
+			linesList.add((float) production.getNumberOfLines());
+			wordsList.add((float) production.getNumberOfWords());
+			ttrList.add(production.getTtr());
+
 			generalMeasurements.totalLines += production.getNumberOfLines();
 			generalMeasurements.totalWords += production.getNumberOfWords();
 			generalMeasurements.totalTTR += production.getTtr();
-			
-			generalMeasurements.meanLines += ((float)production.getNumberOfLines() / productions.size());
-			generalMeasurements.meanWords += ((float)production.getNumberOfWords() / productions.size());
-			generalMeasurements.meanTTR += ((float)production.getTtr() / productions.size());
+
+			generalMeasurements.meanLines += ((float) production.getNumberOfLines() / productions.size());
+			generalMeasurements.meanWords += ((float) production.getNumberOfWords() / productions.size());
+			generalMeasurements.meanTTR += ((float) production.getTtr() / productions.size());
+		}
+
+		// Calculating standard deviation
+
+		// First the sum deviations
+		for (Production production : productions.listAll()) {
+			generalMeasurements.sdWords += Math.pow(production.getNumberOfWords() - generalMeasurements.meanWords, 2);
+			generalMeasurements.sdLines += Math.pow(production.getNumberOfLines() - generalMeasurements.meanLines, 2);
+			generalMeasurements.sdTTR += Math.pow(production.getTtr() - generalMeasurements.meanTTR, 2);
+		}
+
+		// Then the standard deviation
+		generalMeasurements.sdWords = (float) Math.sqrt((generalMeasurements.sdWords) / productions.size());
+		generalMeasurements.sdLines = (float) Math.sqrt((generalMeasurements.sdLines) / productions.size());
+		generalMeasurements.sdTTR = (float) Math.sqrt((generalMeasurements.sdTTR) / productions.size());
+
+		// Sorting lists
+		Collections.sort(wordsList);
+		Collections.sort(linesList);
+		Collections.sort(ttrList);
+
+		// Finding the median
+		if ((wordsList.size() % 2) == 0) {
+			generalMeasurements.medianWords = (wordsList.get(wordsList.size() / 2)
+					+ wordsList.get((wordsList.size() / 2) + 1)) / 2;
+		} else {
+			generalMeasurements.medianWords = wordsList.get(wordsList.size() / 2);
 		}
 		
+		if ((linesList.size() % 2) == 0) {
+			generalMeasurements.medianLines = (linesList.get(linesList.size() / 2)
+					+ linesList.get((linesList.size() / 2) + 1)) / 2;
+		} else {
+			generalMeasurements.medianLines = linesList.get(linesList.size() / 2);
+		}
 		
+		if ((ttrList.size() % 2) == 0) {
+			generalMeasurements.medianTTR = (ttrList.get(ttrList.size() / 2)
+					+ ttrList.get((ttrList.size() / 2) + 1)) / 2;
+		} else {
+			generalMeasurements.medianTTR = ttrList.get(ttrList.size() / 2);
+		}
+
 	}
 
 	public void analyze(Production production) {
