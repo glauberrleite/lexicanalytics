@@ -1,5 +1,8 @@
 package org.lexicanalytics.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GeneralAnalysisMeasurements {
 
 	public GeneralAnalysisMeasurements() {
@@ -18,6 +21,7 @@ public class GeneralAnalysisMeasurements {
 		sdLines = 0;
 		sdWords = 0;
 		sdTTR = 0;
+		occurrences = new HashMap<String, Integer>();
 	}
 
 	public float totalLines;
@@ -49,5 +53,7 @@ public class GeneralAnalysisMeasurements {
 	public float sdWords;
 
 	public float sdTTR;
+	
+	public Map<String, Integer> occurrences;
 	
 }

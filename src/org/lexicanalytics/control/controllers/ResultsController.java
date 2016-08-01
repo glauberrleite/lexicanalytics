@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 
 import org.lexicanalytics.control.Analyzer;
@@ -31,81 +31,84 @@ import org.lexicanalytics.view.ResultsGraphsFrame;
 public class ResultsController extends BaseController implements Initializable {
 
 	private final String FORMAT = "%.2f";
-	
+
 	List<Production> productions;
 
 	@FXML
 	private ComboBox<Production> productionComboBox;
-	
+
 	@FXML
 	private ListView<String> productionOccurrences;
-	
+
 	@FXML
 	private TextField productionWordSearch;
-	
+
 	@FXML
 	private TextField generalWordSearch;
-	
+
 	@FXML
-	private Tab graphsTab;
-	
+	private ScrollPane graphsPane;
+
 	@FXML
-	private Tab reportsTab;
+	private ScrollPane reportsPane;
 
 	// Labels
-	
+
 	// General Labels
-	
+
 	@FXML
 	private Label totalLines;
-	
+
 	@FXML
 	private Label totalWords;
-	
+
 	@FXML
 	private Label totalTTR;
-	
+
 	@FXML
 	private Label meanLines;
-	
+
 	@FXML
 	private Label meanWords;
-	
+
 	@FXML
 	private Label meanTTR;
-	
+
 	@FXML
 	private Label medianLines;
-	
+
 	@FXML
 	private Label medianWords;
-	
+
 	@FXML
 	private Label medianTTR;
-	
+
 	@FXML
 	private Label modeLines;
-	
+
 	@FXML
 	private Label modeWords;
-	
+
 	@FXML
 	private Label modeTTR;
-	
+
 	@FXML
 	private Label sdLines;
-	
+
 	@FXML
 	private Label sdWords;
-	
+
 	@FXML
 	private Label sdTTR;
-	
+
 	@FXML
 	private Label generalWordSearchResult;
-	
+
+	@FXML
+	private ListView<String> generalOccurrences;
+
 	// Production Labels
-	
+
 	@FXML
 	private Label productionLines;
 
@@ -125,7 +128,7 @@ public class ResultsController extends BaseController implements Initializable {
 	private Label productionWordSearchResult;
 
 	// End Labels
-		
+
 	private class ComboBoxListener implements ChangeListener<Production> {
 
 		@Override
@@ -157,45 +160,46 @@ public class ResultsController extends BaseController implements Initializable {
 		productions = Analyzer.getInstance().productions.listAll();
 
 		// General Tab
-		
-		
-		totalLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalLines));
-		totalWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalWords));
-		totalTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalTTR));
-		
-		meanLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanLines));
-		meanWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanWords));
-		meanTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanTTR));
-		
-		medianLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianLines));
-		medianWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianWords));
-		medianTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianTTR));
-		
-		modeLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeLines));
-		modeWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeWords));
-		modeTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeTTR));
-		
-		sdLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdLines));
-		sdWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdWords));
-		sdTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdTTR));
-		
-		
-		
+			totalLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalLines));
+			totalWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalWords));
+			totalTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalTTR));
+	
+			meanLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanLines));
+			meanWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanWords));
+			meanTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanTTR));
+	
+			medianLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianLines));
+			medianWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianWords));
+			medianTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianTTR));
+	
+			modeLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeLines));
+			modeWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeWords));
+			modeTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeTTR));
+	
+			sdLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdLines));
+			sdWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdWords));
+			sdTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdTTR));
+	
+			ObservableList<String> generalOccurrences = FXCollections.observableArrayList();
+			for (Map.Entry<String, Integer> entry : Analyzer.getInstance().generalMeasurements.occurrences.entrySet()) {
+				generalOccurrences.add(entry.getKey() + " - " + entry.getValue() + " times");
+			}
+	
+			this.generalOccurrences.setItems(generalOccurrences);
+
 		// Production Tab
-		
-		// Fill ComboBox
-		ObservableList<Production> options = FXCollections.observableArrayList(productions);
 
-		productionComboBox.setItems(options);
+			// Fill productions ComboBox
+			ObservableList<Production> options = FXCollections.observableArrayList(productions);
+	
+			productionComboBox.setItems(options);
+	
+			// Listener to the ComboBox
+			productionComboBox.valueProperty().addListener(new ComboBoxListener());
+			productionComboBox.setValue(productions.get(0));
 
-		// Listener to the ComboBox
-		productionComboBox.valueProperty().addListener(new ComboBoxListener());
-		productionComboBox.setValue(productions.get(0));
-		
-		
-		
-		// Graphs Tab
-		graphsTab.setContent((new ResultsGraphsFrame()).getAnchorPane());
+		// Graphs ScrollPane
+			graphsPane.setContent((new ResultsGraphsFrame()).getAnchorPane());
 
 	}
 
@@ -216,9 +220,23 @@ public class ResultsController extends BaseController implements Initializable {
 
 		}
 	}
-	
+
 	@FXML
 	private void generalWordSearch() {
+		String word = generalWordSearch.getText().toLowerCase();
+
+		Map<String, Integer> occurrences = Analyzer.getInstance().generalMeasurements.occurrences;
+
+		if ((occurrences != null) && (occurrences.containsKey(word))) {
+
+			int numberOfOccurrences = occurrences.get(word);
+			generalWordSearchResult.setText(word + " - " + numberOfOccurrences + " times");
+
+		} else {
+
+			generalWordSearchResult.setText("No results for " + word);
+
+		}
 	}
 
 }

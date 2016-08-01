@@ -55,7 +55,7 @@ public class Analyzer {
 			analyze(productions.getByIndex(i));
 
 			// Increment progress indicator
-			processingCtrl.addProgress(80 / productions.size());
+			processingCtrl.addProgress(65 / productions.size());
 		}
 
 		processingCtrl.setStatus(productions.size() + " production(s) analyzed, building general analysis");
@@ -71,15 +71,29 @@ public class Analyzer {
 			wordsList.add((float) production.getNumberOfWords());
 			ttrList.add(production.getTtr());
 
+			// Total metrics
 			generalMeasurements.totalLines += production.getNumberOfLines();
 			generalMeasurements.totalWords += production.getNumberOfWords();
 			generalMeasurements.totalTTR += production.getTtr();
 
+			// Mean metrics
 			generalMeasurements.meanLines += ((float) production.getNumberOfLines() / productions.size());
 			generalMeasurements.meanWords += ((float) production.getNumberOfWords() / productions.size());
 			generalMeasurements.meanTTR += ((float) production.getTtr() / productions.size());
-		}
 
+			// Occurrences Metrics
+			mergeMap(generalMeasurements.occurrences, production.getOccurrences());
+			
+			// Increment progress indicator
+			processingCtrl.addProgress(20 / productions.size());	
+		}		
+		
+		// Increment progress indicator
+		processingCtrl.addProgress(5);
+		
+		// Sorting general occurrences map
+		generalMeasurements.occurrences = sortByComparator(generalMeasurements.occurrences);
+		
 		// Calculating standard deviation
 
 		// First the sum deviations
@@ -94,32 +108,15 @@ public class Analyzer {
 		generalMeasurements.sdLines = (float) Math.sqrt((generalMeasurements.sdLines) / productions.size());
 		generalMeasurements.sdTTR = (float) Math.sqrt((generalMeasurements.sdTTR) / productions.size());
 
-		// Sorting lists
-		Collections.sort(wordsList);
-		Collections.sort(linesList);
-		Collections.sort(ttrList);
+		// Finding the medians
+		generalMeasurements.medianWords = calculateMedian(wordsList);
+		generalMeasurements.medianLines = calculateMedian(linesList);
+		generalMeasurements.medianTTR = calculateMedian(ttrList);
 
-		// Finding the median
-		if ((wordsList.size() % 2) == 0) {
-			generalMeasurements.medianWords = (wordsList.get(wordsList.size() / 2)
-					+ wordsList.get((wordsList.size() / 2) + 1)) / 2;
-		} else {
-			generalMeasurements.medianWords = wordsList.get(wordsList.size() / 2);
-		}
-		
-		if ((linesList.size() % 2) == 0) {
-			generalMeasurements.medianLines = (linesList.get(linesList.size() / 2)
-					+ linesList.get((linesList.size() / 2) + 1)) / 2;
-		} else {
-			generalMeasurements.medianLines = linesList.get(linesList.size() / 2);
-		}
-		
-		if ((ttrList.size() % 2) == 0) {
-			generalMeasurements.medianTTR = (ttrList.get(ttrList.size() / 2)
-					+ ttrList.get((ttrList.size() / 2) + 1)) / 2;
-		} else {
-			generalMeasurements.medianTTR = ttrList.get(ttrList.size() / 2);
-		}
+		// Calculating mode
+		generalMeasurements.modeWords = calculateMode(wordsList);
+		generalMeasurements.modeLines = calculateMode(linesList);
+		generalMeasurements.modeTTR = calculateMode(ttrList);
 
 	}
 
@@ -206,6 +203,38 @@ public class Analyzer {
 			sortedMap.put(entry.getKey(), entry.getValue());
 		}
 		return sortedMap;
+	}
+
+	private float calculateMedian(List<Float> list) {
+		Collections.sort(list);
+
+		if ((list.size() % 2) == 0) {
+			return (list.get(list.size() / 2) + list.get((list.size() / 2) - 1)) / 2;
+		} else {
+			return list.get(list.size() / 2);
+		}
+
+	}
+
+	private float calculateMode(List<Float> list) {
+
+		return 0;
+
+	}
+
+	private void mergeMap(Map<String, Integer> sourceMap, Map<String, Integer> mergeMap) {
+		for (Map.Entry<String, Integer> entry : mergeMap.entrySet()){
+			
+			int newValue = entry.getValue();
+			
+			String word = entry.getKey().toLowerCase(); // to make a standard
+
+			if (sourceMap.containsKey(word)) {
+				newValue = sourceMap.get(word) + entry.getValue();
+			}
+
+			sourceMap.put(word, newValue);
+		}
 	}
 
 }

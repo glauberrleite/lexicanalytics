@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -91,6 +92,8 @@
                         <TextField fx:id="generalWordSearch" layoutX="112.0" layoutY="266.0" />
                         <Button layoutX="295.0" layoutY="266.0" mnemonicParsing="false" onAction="#generalWordSearch" text="Search" />
                         <Label fx:id="generalWordSearchResult" alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="305.0" prefHeight="16.0" prefWidth="169.0" text="No search item" />
+                        <ListView fx:id="generalOccurrences" layoutX="532.0" layoutY="253.0" prefHeight="104.0" prefWidth="254.0" />
+                        <Label layoutX="435.0" layoutY="258.0" text="Occurrences:" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -155,7 +158,7 @@
                                  </padding>
                               </Label>
                               <Label text="Search word: " GridPane.rowIndex="3" />
-                              <ListView fx:id="productionOccurrences" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowSpan="4" />
+                              <ListView fx:id="productionOccurrences" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowSpan="4" />
                               <TextField fx:id="productionWordSearch" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Button mnemonicParsing="false" onAction="#productionWordSearch" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                  <GridPane.margin>
@@ -174,14 +177,20 @@
                   </AnchorPane>
               </content>
             </Tab>
-          <Tab fx:id="graphsTab" text="Graphs">
+          <Tab text="Graphs">
             <content>
-              <AnchorPane maxHeight="377.0" maxWidth="800.0" minHeight="0.0" minWidth="0.0" prefHeight="377.0" prefWidth="800.0" />
+              <AnchorPane maxHeight="377.0" maxWidth="800.0" minHeight="0.0" minWidth="0.0" prefHeight="377.0" prefWidth="800.0">
+                     <children>
+                        <ScrollPane fx:id="graphsPane" prefHeight="377.0" prefWidth="800.0" />
+                     </children></AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="reportsTab" text="Reports">
+            <Tab text="Reports">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane fx:id="reportsPane" prefHeight="377.0" prefWidth="800.0" />
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
