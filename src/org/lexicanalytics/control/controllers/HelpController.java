@@ -12,6 +12,6 @@ import org.lexicanalytics.model.BaseController;
 public class HelpController extends BaseController{
 	@FXML
 	public void back(){
-		Main.showTextInput();
+		Main.showLastPane();
 	}
 }

@@ -10,6 +10,7 @@ import org.lexicanalytics.view.TextInputFrame;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -84,7 +85,15 @@ public class Main extends Application {
 	public static void showHelp() {
 		if (help == null)
 			help = new HelpFrame();
+		
+		if(rootLayout.getCenter() != help.getAnchorPane()){
+			rootLayout.setUserData(rootLayout.getCenter());
+		}		
 		rootLayout.setCenter(help.getAnchorPane());
+	}
+	
+	public static void showLastPane(){
+		rootLayout.setCenter((Node) rootLayout.getUserData());
 	}
 
 	public static void showTextInput() {
