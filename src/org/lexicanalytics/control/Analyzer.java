@@ -217,8 +217,26 @@ public class Analyzer {
 	}
 
 	private float calculateMode(List<Float> list) {
-			Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		return 0;
+		
+		// Finding the number of occurrences of each item
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+		for(int i = 0; i < list.size(); i++){
+			String key = String.valueOf(list.get(i));
+			
+			int value = 1; 
+			if(map.containsKey(key)){
+				value = map.get(key) + 1;
+			}
+			
+			map.put(key, value);
+		}
+		
+		map = sortByComparator(map);
+		
+		// Getting only the first value of the sorted map;
+		String result = map.entrySet().iterator().next().getKey();
+		
+		return Float.parseFloat(result);
 
 	}
 
