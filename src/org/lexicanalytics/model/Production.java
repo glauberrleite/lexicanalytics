@@ -1,6 +1,6 @@
 package org.lexicanalytics.model;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.lexicanalytics.control.Analyzer;
@@ -30,7 +30,7 @@ public class Production {
 	public Production(String text){
 		this.text = text;
 		
-		this.occurrences = new HashMap<String, Integer>();
+		this.occurrences = new LinkedHashMap<String, Integer>();
 		this.numberOfLines = 0;
 		this.numberOfWords = 0;
 		this.numberOfTypes = 0;
@@ -60,7 +60,7 @@ public class Production {
 
 
 	public Map<String, Integer> getOccurrences() {
-		return new HashMap<String, Integer>(occurrences);
+		return new LinkedHashMap<String, Integer>(occurrences);
 	}
 
 

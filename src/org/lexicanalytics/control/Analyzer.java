@@ -217,7 +217,7 @@ public class Analyzer {
 	}
 
 	private float calculateMode(List<Float> list) {
-
+			Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		return 0;
 
 	}
