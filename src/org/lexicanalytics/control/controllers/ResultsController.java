@@ -21,6 +21,7 @@ import org.lexicanalytics.control.Analyzer;
 import org.lexicanalytics.model.BaseController;
 import org.lexicanalytics.model.Production;
 import org.lexicanalytics.view.ResultsGraphsFrame;
+import org.lexicanalytics.view.ResultsReportsFrame;
 
 /**
  * 
@@ -201,6 +202,9 @@ public class ResultsController extends BaseController implements Initializable {
 		// Graphs ScrollPane
 			graphsPane.setContent((new ResultsGraphsFrame()).getAnchorPane());
 
+			
+		// Reports ScrollPane
+			reportsPane.setContent((new ResultsReportsFrame()).getAnchorPane());
 	}
 
 	@FXML
