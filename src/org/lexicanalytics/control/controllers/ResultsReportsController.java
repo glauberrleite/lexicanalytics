@@ -18,6 +18,9 @@ public class ResultsReportsController extends BaseController implements Initiali
 
 	@FXML
 	private Label highestLines;
+	
+	@FXML
+	private Label highestTypes;
 
 	@FXML
 	private Label highestTTR;
@@ -27,6 +30,9 @@ public class ResultsReportsController extends BaseController implements Initiali
 
 	@FXML
 	private Label lowestLines;
+	
+	@FXML
+	private Label lowestTypes;
 
 	@FXML
 	private Label lowestTTR;
@@ -36,9 +42,11 @@ public class ResultsReportsController extends BaseController implements Initiali
 
 		int topWords = 0;
 		int topLines = 0;
+		int topTypes = 0;
 		float topTTR = 0;
 		int lowWords = 0;
 		int lowLines = 0;
+		int lowTypes = 0;
 
 		// The highest TTR possible is 100
 		float lowTTR = 100;
@@ -54,6 +62,10 @@ public class ResultsReportsController extends BaseController implements Initiali
 			if (production.getNumberOfLines() > topLines) {
 				topLines = production.getNumberOfLines();
 				highestLines.setText(production.toString() + " - " + production.getNumberOfLines());
+			}
+			if (production.getNumberOfTypes() > topTypes) {
+				topTypes = production.getNumberOfTypes();
+				highestTypes.setText(production.toString() + " - " + production.getNumberOfTypes());
 			}
 			if (production.getTtr() > topTTR) {
 				topTTR = production.getTtr();
@@ -71,6 +83,10 @@ public class ResultsReportsController extends BaseController implements Initiali
 			if ((production.getNumberOfLines() < lowLines) || (lowLines == 0)) {
 				lowLines = production.getNumberOfLines();
 				lowestLines.setText(production.toString() + " - " + production.getNumberOfLines());
+			}
+			if ((production.getNumberOfTypes() < lowTypes) || (lowTypes == 0)) {
+				lowTypes = production.getNumberOfTypes();
+				lowestTypes.setText(production.toString() + " - " + production.getNumberOfTypes());
 			}
 			if (production.getTtr() < lowTTR) {
 				lowTTR = production.getTtr();

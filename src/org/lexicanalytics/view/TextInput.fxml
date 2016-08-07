@@ -24,7 +24,7 @@
                   <Insets bottom="335.0" />
                </HBox.margin>
             </Label>
-            <TextArea fx:id="text" prefHeight="356.0" prefWidth="680.0" />
+            <TextArea fx:id="text" prefHeight="356.0" prefWidth="660.0" />
             <VBox alignment="CENTER" prefHeight="460.0" prefWidth="75.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#next" prefHeight="40.0" prefWidth="55.0" text="Next" />
