@@ -40,6 +40,6 @@
             <Insets top="5.0" />
          </padding>
       </HBox>
-      <Button layoutX="325.0" layoutY="375.0" mnemonicParsing="false" onAction="#analyse" prefWidth="150.0" text="Analyse" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="375.0" mnemonicParsing="false" onAction="#analyse" prefWidth="150.0" text="Analyse" textAlignment="CENTER" />
    </children>
 </AnchorPane>

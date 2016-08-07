@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
@@ -178,34 +179,16 @@ public class ResultsGraphsController extends BaseController implements Initializ
 
 	@FXML
 	private void saveProductionAnalysis() {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Save Graph");
-		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image File", "*.png"),
-				new FileChooser.ExtensionFilter("All", "*.*"));
-		File file = fileChooser.showSaveDialog(new Stage());
-
-		if (file != null) {
-
-			WritableImage image = productionChart.snapshot(new SnapshotParameters(), null);
-
-			try {
-				ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
-
-			// Alert in JavaFX 8u40
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Success");
-			alert.setHeaderText(null);
-			alert.setContentText("Graph saved on " + file.getAbsolutePath());
-
-			alert.showAndWait();
-		}
+		saveGraph(productionChart);
 	}
 
 	@FXML
 	private void saveWordsAnalysis() {
+		saveGraph(wordsGraph);
+		
+	}
+	
+	private void saveGraph(Chart chart) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save Graph");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image File", "*.png"),
@@ -214,7 +197,7 @@ public class ResultsGraphsController extends BaseController implements Initializ
 
 		if (file != null) {
 
-			WritableImage image = wordsGraph.snapshot(new SnapshotParameters(), null);
+			WritableImage image = chart.snapshot(new SnapshotParameters(), null);
 
 			try {
 				ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
