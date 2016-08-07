@@ -64,7 +64,7 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </Label>
-            <Hyperlink onAction="#visitWebsite" text="http://projects.glauberrleite.com/lexicanalytcs" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Hyperlink onAction="#visitWebsite" text="http://projects.glauberrleite.com/lexicanalytics" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Hyperlink onAction="#visitHome" text="http://glauberrleite.com" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Hyperlink onAction="#visitGithub" text="https://github.com/glauberrleite/lexicanalytics" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
