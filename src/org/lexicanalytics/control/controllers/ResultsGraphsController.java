@@ -1,21 +1,32 @@
 package org.lexicanalytics.control.controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
 import org.lexicanalytics.control.Analyzer;
 import org.lexicanalytics.model.BaseController;
 import org.lexicanalytics.model.Production;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.WritableImage;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class ResultsGraphsController extends BaseController implements Initializable {
 
@@ -52,42 +63,42 @@ public class ResultsGraphsController extends BaseController implements Initializ
 		productions = Analyzer.getInstance().productions.listAll();
 
 		// Productions line chart
-			toggleWords();
-			 productionChart.setCursor(Cursor.CROSSHAIR);
+		toggleWords();
+		productionChart.setCursor(Cursor.CROSSHAIR);
 
 		// Words pie chart
 
-			// Increment to get first 5 itens
-			int i = 0;
-			int totalTopWords = 0;
-	
-			for (Map.Entry<String, Integer> entry : Analyzer.getInstance().generalMeasurements.occurrences.entrySet()) {
-	
-				// Getting the frequency of the given word
-				float value = (float) ((entry.getValue() * 100) / Analyzer.getInstance().generalMeasurements.totalWords);
-	
-				PieChart.Data data = new PieChart.Data(entry.getKey(), value);
-				wordsGraph.getData().add(data);
-	
-				totalTopWords += entry.getValue();
-	
-				// Get first 5 values
-				if (i >= 5) {
-					break;
-				} else {
-					i++;
-				}
+		// Increment to get first 5 itens
+		int i = 0;
+		int totalTopWords = 0;
+
+		for (Map.Entry<String, Integer> entry : Analyzer.getInstance().generalMeasurements.occurrences.entrySet()) {
+
+			// Getting the frequency of the given word
+			float value = (float) ((entry.getValue() * 100) / Analyzer.getInstance().generalMeasurements.totalWords);
+
+			PieChart.Data data = new PieChart.Data(entry.getKey(), value);
+			wordsGraph.getData().add(data);
+
+			totalTopWords += entry.getValue();
+
+			// Get first 5 values
+			if (i >= 5) {
+				break;
+			} else {
+				i++;
 			}
-	
-			// Getting frequency of non top words
-			float value = (float) (((Analyzer.getInstance().generalMeasurements.totalWords - totalTopWords) * 100)
-					/ Analyzer.getInstance().generalMeasurements.totalWords);
-			
-			if(value > 0){
-				PieChart.Data otherWords = new PieChart.Data("Other words", value);
-				wordsGraph.getData().add(otherWords);
-			}
-		
+		}
+
+		// Getting frequency of non top words
+		float value = (float) (((Analyzer.getInstance().generalMeasurements.totalWords - totalTopWords) * 100)
+				/ Analyzer.getInstance().generalMeasurements.totalWords);
+
+		if (value > 0) {
+			PieChart.Data otherWords = new PieChart.Data("Other words", value);
+			wordsGraph.getData().add(otherWords);
+		}
+
 	}
 
 	@FXML
@@ -162,6 +173,62 @@ public class ResultsGraphsController extends BaseController implements Initializ
 
 		} else {
 			productionChart.getData().remove(ttrSeries);
+		}
+	}
+
+	@FXML
+	private void saveProductionAnalysis() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save Graph");
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image File", "*.png"),
+				new FileChooser.ExtensionFilter("All", "*.*"));
+		File file = fileChooser.showSaveDialog(new Stage());
+
+		if (file != null) {
+
+			WritableImage image = productionChart.snapshot(new SnapshotParameters(), null);
+
+			try {
+				ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+
+			// Alert in JavaFX 8u40
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText(null);
+			alert.setContentText("Graph saved on " + file.getAbsolutePath());
+
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	private void saveWordsAnalysis() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save Graph");
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image File", "*.png"),
+				new FileChooser.ExtensionFilter("All", "*.*"));
+		File file = fileChooser.showSaveDialog(new Stage());
+
+		if (file != null) {
+
+			WritableImage image = wordsGraph.snapshot(new SnapshotParameters(), null);
+
+			try {
+				ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+
+			// Alert in JavaFX 8u40
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText(null);
+			alert.setContentText("Graph saved on " + file.getAbsolutePath());
+
+			alert.showAndWait();
 		}
 	}
 
