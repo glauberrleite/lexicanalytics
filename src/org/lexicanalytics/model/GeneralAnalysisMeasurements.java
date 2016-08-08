@@ -3,6 +3,13 @@ package org.lexicanalytics.model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * This class offers a structured way to save the general measures of the
+ * productions sample used by the Analyzer.
+ * 
+ * @author glauberrleite
+ *
+ */
 public class GeneralAnalysisMeasurements {
 
 	public GeneralAnalysisMeasurements() {
@@ -53,7 +60,7 @@ public class GeneralAnalysisMeasurements {
 	public float sdWords;
 
 	public float sdTTR;
-	
+
 	public Map<String, Integer> occurrences;
-	
+
 }

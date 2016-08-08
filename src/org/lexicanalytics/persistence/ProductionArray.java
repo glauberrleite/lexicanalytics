@@ -5,6 +5,12 @@ import java.util.List;
 
 import org.lexicanalytics.model.Production;
 
+/**
+ * Implements production temporary persistence using ArrayList
+ * 
+ * @author glauberrleite
+ *
+ */
 public class ProductionArray implements ProductionDAO {
 
 	private List<Production> productions;
@@ -29,7 +35,7 @@ public class ProductionArray implements ProductionDAO {
 	public void deleteProduction(Production production) {
 		if (production != null)
 			productions.remove(production);
-		
+
 	}
 
 	@Override
@@ -44,9 +50,13 @@ public class ProductionArray implements ProductionDAO {
 		else
 			return null;
 	}
-	
+
 	@Override
-	public int getIndex(Production production){
-		return productions.indexOf(production);
+	public int getIndex(Production production) {
+		if (productions.contains(production)) {
+			return productions.indexOf(production);
+		} else {
+			return -1;
+		}
 	}
 }

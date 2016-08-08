@@ -18,9 +18,15 @@ import org.lexicanalytics.persistence.ProductionDAO;
 import org.lexicanalytics.persistence.ProductionArray;
 
 /**
- * Uses Singleton design pattern, so do not create new instances, instead use
- * Analyzer.getInstance(); This class offers results for the Lexicanalytics
- * application.
+ * Class responsible to deal with most of logics applied to the productions
+ * analysis. It uses singleton to keep a single instance. The Analyzer
+ * communicates with persistence too by instantiating a DAO of productions and
+ * having a instance of General Analysis Measurements for statistical purposes.
+ * The user should add a production to the productions DAO then call
+ * analyzeAllProduction method. Another possibility is to call the analyze
+ * method giving it a production instance as parameter. The Analyzer will
+ * compute metrics like number of words, words occurrences, lines and so on, and
+ * attach it to the production instance.
  * 
  * @author glauberrleite
  *
@@ -43,6 +49,11 @@ public class Analyzer {
 		return instance;
 	}
 
+	/**
+	 * Passes through all productions analyzing each one's metrics, then
+	 * calculates general measures like the sum of all words, and the mean of
+	 * words in the sample.
+	 */
 	public void analyzeAllProductions() {
 
 		ProcessingController processingCtrl = (ProcessingController) Main.getProcessingController();
@@ -83,17 +94,17 @@ public class Analyzer {
 
 			// Occurrences Metrics
 			mergeMap(generalMeasurements.occurrences, production.getOccurrences());
-			
+
 			// Increment progress indicator
-			processingCtrl.addProgress(20 / productions.size());	
-		}		
-		
+			processingCtrl.addProgress(20 / productions.size());
+		}
+
 		// Increment progress indicator
 		processingCtrl.addProgress(5);
-		
+
 		// Sorting general occurrences map
 		generalMeasurements.occurrences = sortByComparator(generalMeasurements.occurrences);
-		
+
 		// Calculating standard deviation
 
 		// First the sum deviations
@@ -120,6 +131,14 @@ public class Analyzer {
 
 	}
 
+	/**
+	 * Computes some statistical measures like number of words, words
+	 * occurrences for the given production and save those changes in the same
+	 * instance of Production.
+	 * 
+	 * @param production
+	 *            Production to analyze
+	 */
 	public void analyze(Production production) {
 
 		production.setNumberOfLines(production.getText().split("\n").length);
@@ -173,8 +192,8 @@ public class Analyzer {
 
 	/**
 	 * Method to sort a Map by value. In this application, the higher values
-	 * stay on the first positions of the Map. This method is adapted from
-	 * http://www.mkyong.com/java/how-to-sort-a-map-in-java/.
+	 * should stay on the first positions of the Map. This method is adapted
+	 * from http://www.mkyong.com/java/how-to-sort-a-map-in-java/.
 	 * 
 	 * @param unsortMap
 	 *            Map object to sort
@@ -216,35 +235,53 @@ public class Analyzer {
 
 	}
 
+	/**
+	 * Calculates the mode in the sample
+	 * 
+	 * @param list
+	 *            A list of float values
+	 * @return The most frequent value in the list, know as mode in statistics
+	 */
 	private float calculateMode(List<Float> list) {
-		
+
 		// Finding the number of occurrences of each item
 		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-		for(int i = 0; i < list.size(); i++){
+		for (int i = 0; i < list.size(); i++) {
 			String key = String.valueOf(list.get(i));
-			
-			int value = 1; 
-			if(map.containsKey(key)){
+
+			int value = 1;
+			if (map.containsKey(key)) {
 				value = map.get(key) + 1;
 			}
-			
+
 			map.put(key, value);
 		}
-		
+
 		map = sortByComparator(map);
-		
+
 		// Getting only the first value of the sorted map;
 		String result = map.entrySet().iterator().next().getKey();
-		
+
 		return Float.parseFloat(result);
 
 	}
 
+	/**
+	 * Merges two maps, adding the values of a given key of the second map to
+	 * the same key in the first parameter map.
+	 * 
+	 * @param sourceMap
+	 *            The map where keys will be compared and values added, so it
+	 *            will be merged with the other map.
+	 * @param mergeMap
+	 *            The map with keys and values that should be added to the
+	 *            sourceMap
+	 */
 	private void mergeMap(Map<String, Integer> sourceMap, Map<String, Integer> mergeMap) {
-		for (Map.Entry<String, Integer> entry : mergeMap.entrySet()){
-			
+		for (Map.Entry<String, Integer> entry : mergeMap.entrySet()) {
+
 			int newValue = entry.getValue();
-			
+
 			String word = entry.getKey().toLowerCase(); // to make a standard
 
 			if (sourceMap.containsKey(word)) {

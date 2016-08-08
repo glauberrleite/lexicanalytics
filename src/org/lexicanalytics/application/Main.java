@@ -16,9 +16,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Lexicanalytics offers a set of functionalities to help linguistics researchers
- * with lexical studies, when they are manipulating and retrieving information 
- * from text data. Copyright (C) 2015 Glauber Rodrigues Leite
+ * Lexicanalytics offers a set of functionalities to help linguistics
+ * researchers with lexical studies, when they are manipulating and retrieving
+ * information from text data. Copyright (C) 2016 Glauber Rodrigues Leite
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -33,14 +33,9 @@ import javafx.scene.layout.BorderPane;
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  * 
- */
-
-/**
- * 
  * @author glauberrleite
  *
  */
-
 public class Main extends Application {
 
 	private static BorderPane rootLayout;
@@ -53,14 +48,12 @@ public class Main extends Application {
 			primaryStage.setTitle("Lexicanalytics");
 			primaryStage.setFullScreen(false);
 			primaryStage.setResizable(false);
-			primaryStage.getIcons().add(
-					new Image(getClass().getClassLoader().getResourceAsStream(
-							"org/lexicanalytics/resources/logo.png")));
+			primaryStage.getIcons().add(new Image(
+					getClass().getClassLoader().getResourceAsStream("org/lexicanalytics/resources/logo.png")));
 
 			// Loads the Layout defined by the respective .fxml file
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getClassLoader().getResource(
-					"org/lexicanalytics/view/RootLayout.fxml"));
+			loader.setLocation(getClass().getClassLoader().getResource("org/lexicanalytics/view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 			Scene scene = new Scene(rootLayout);
 
@@ -82,43 +75,61 @@ public class Main extends Application {
 		launch(args);
 	}
 
+	/**
+	 * Method to make the help frame visible to the user
+	 */
 	public static void showHelp() {
 		if (help == null)
 			help = new HelpFrame();
-		
-		if(rootLayout.getCenter() != help.getAnchorPane()){
+
+		// Save the current frame to return it again when the help frame is not
+		// needed anymore.
+		if (rootLayout.getCenter() != help.getAnchorPane()) {
 			rootLayout.setUserData(rootLayout.getCenter());
-		}		
+		}
 		rootLayout.setCenter(help.getAnchorPane());
 	}
-	
-	public static void showLastPane(){
+
+	/**
+	 * When the help frame is not needed anymore, this method makes the last
+	 * pane shown before the help visible to the user again
+	 */
+	public static void showLastPane() {
 		rootLayout.setCenter((Node) rootLayout.getUserData());
 	}
 
+	/**
+	 * Method to make the text input frame visible to the user
+	 */
 	public static void showTextInput() {
 		if (input == null)
 			input = new TextInputFrame();
 		rootLayout.setCenter(input.getAnchorPane());
 	}
 
-	public static void showProcessing(){
+	/**
+	 * Method to make the processing frame visible to the user
+	 */
+	public static void showProcessing() {
 		if (processing == null)
 			processing = new ProcessingFrame();
 		rootLayout.setCenter(processing.getAnchorPane());
 	}
-	
-	public static void showResults(){
+
+	/**
+	 * Method to make the results frame visible to the user
+	 */
+	public static void showResults() {
 		if (results == null)
 			results = new ResultsFrame();
 		rootLayout.setCenter(results.getAnchorPane());
 	}
-	
-	public static BaseController getProcessingController(){
+
+	public static BaseController getProcessingController() {
 		return processing.getController();
 	}
-	
-	public static BaseController getResultsController(){
+
+	public static BaseController getResultsController() {
 		return results.getController();
 	}
 }
