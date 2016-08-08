@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <anttasks:AntTask xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:anttasks="http://org.eclipse.fx.ide.jdt/1.0" buildDirectory="${project}/build">
-  <deploy extension="true" height="600" width="800">
+  <deploy extension="true" height="500" width="800">
     <application name="lexicanalytical" mainclass="org.lexicanalytics.application.Main" version="2.0"/>
     <info title="Lexicanalytics" vendor="glauberrleite"/>
   </deploy>
