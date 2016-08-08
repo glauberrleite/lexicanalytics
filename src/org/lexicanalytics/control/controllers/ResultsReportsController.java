@@ -139,29 +139,29 @@ public class ResultsReportsController extends BaseController implements Initiali
 		GeneralAnalysisMeasurements measures = Analyzer.getInstance().generalMeasurements;
 
 		generalReport += "Words\n";
-		generalReport += "Total: " + measures.totalWords + "\n";
-		generalReport += "Mean: " + measures.meanWords + "\n";
-		generalReport += "Median: " + measures.modeWords + "\n";
-		generalReport += "Mode: " + measures.modeWords + "\n";
-		generalReport += "SD: " + measures.sdWords + "\n";
+		generalReport += "Total: " + String.format(FORMAT, measures.totalWords) + "\n";
+		generalReport += "Mean: " + String.format(FORMAT, measures.meanWords) + "\n";
+		generalReport += "Median: " + String.format(FORMAT, measures.medianWords) + "\n";
+		generalReport += "Mode: " + String.format(FORMAT, measures.modeWords) + "\n";
+		generalReport += "SD: " + String.format(FORMAT, measures.sdWords) + "\n";
 		
 		generalReport += "\n";
 		
 		generalReport += "Types\n";
-		generalReport += "Total: " + measures.totalTypes + "\n";
-		generalReport += "Mean: " + measures.meanTypes + "\n";
-		generalReport += "Median: " + measures.modeTypes + "\n";
-		generalReport += "Mode: " + measures.modeTypes + "\n";
-		generalReport += "SD: " + measures.sdTypes + "\n";
+		generalReport += "Total: " + String.format(FORMAT, measures.totalTypes) + "\n";
+		generalReport += "Mean: " + String.format(FORMAT, measures.meanTypes) + "\n";
+		generalReport += "Median: " + String.format(FORMAT, measures.medianTypes) + "\n";
+		generalReport += "Mode: " + String.format(FORMAT, measures.modeTypes) + "\n";
+		generalReport += "SD: " + String.format(FORMAT, measures.sdTypes) + "\n";
 
 		generalReport += "\n";
 
 		generalReport += "Lines\n";
-		generalReport += "Total: " + measures.totalLines + "\n";
-		generalReport += "Mean: " + measures.meanLines + "\n";
-		generalReport += "Median: " + measures.modeLines + "\n";
-		generalReport += "Mode: " + measures.modeLines + "\n";
-		generalReport += "SD: " + measures.sdLines + "\n";
+		generalReport += "Total: " + String.format(FORMAT, measures.totalLines) + "\n";
+		generalReport += "Mean: " + String.format(FORMAT, measures.meanLines) + "\n";
+		generalReport += "Median: " + String.format(FORMAT, measures.medianLines) + "\n";
+		generalReport += "Mode: " + String.format(FORMAT, measures.modeLines) + "\n";
+		generalReport += "SD: " + String.format(FORMAT, measures.sdLines) + "\n";
 
 		generalReport += "\n";
 

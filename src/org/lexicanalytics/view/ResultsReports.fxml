@@ -70,7 +70,7 @@
             <Font name="System Italic" size="18.0" />
          </font>
       </Label>
-      <TextArea fx:id="report" layoutX="65.0" layoutY="318.0" prefHeight="300.0" prefWidth="650.0" />
+      <TextArea fx:id="report" editable="false" layoutX="65.0" layoutY="318.0" prefHeight="300.0" prefWidth="650.0" />
       <Button layoutX="365.0" layoutY="637.0" mnemonicParsing="false" onAction="#saveReport" text="Save" />
    </children>
 </AnchorPane>
