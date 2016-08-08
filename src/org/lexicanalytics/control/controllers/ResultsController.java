@@ -67,6 +67,9 @@ public class ResultsController extends BaseController implements Initializable {
 	private Label totalTTR;
 
 	@FXML
+	private Label totalTypes;
+
+	@FXML
 	private Label meanLines;
 
 	@FXML
@@ -74,6 +77,9 @@ public class ResultsController extends BaseController implements Initializable {
 
 	@FXML
 	private Label meanTTR;
+
+	@FXML
+	private Label meanTypes;
 
 	@FXML
 	private Label medianLines;
@@ -85,6 +91,9 @@ public class ResultsController extends BaseController implements Initializable {
 	private Label medianTTR;
 
 	@FXML
+	private Label medianTypes;
+
+	@FXML
 	private Label modeLines;
 
 	@FXML
@@ -94,6 +103,9 @@ public class ResultsController extends BaseController implements Initializable {
 	private Label modeTTR;
 
 	@FXML
+	private Label modeTypes;
+
+	@FXML
 	private Label sdLines;
 
 	@FXML
@@ -101,6 +113,9 @@ public class ResultsController extends BaseController implements Initializable {
 
 	@FXML
 	private Label sdTTR;
+
+	@FXML
+	private Label sdTypes;
 
 	@FXML
 	private Label generalWordSearchResult;
@@ -161,50 +176,54 @@ public class ResultsController extends BaseController implements Initializable {
 		productions = Analyzer.getInstance().productions.listAll();
 
 		// General Tab
-			totalLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalLines));
-			totalWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalWords));
-			totalTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalTTR));
-	
-			meanLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanLines));
-			meanWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanWords));
-			meanTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanTTR));
-	
-			medianLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianLines));
-			medianWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianWords));
-			medianTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianTTR));
-	
-			modeLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeLines));
-			modeWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeWords));
-			modeTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeTTR));
-	
-			sdLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdLines));
-			sdWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdWords));
-			sdTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdTTR));
-	
-			ObservableList<String> generalOccurrences = FXCollections.observableArrayList();
-			for (Map.Entry<String, Integer> entry : Analyzer.getInstance().generalMeasurements.occurrences.entrySet()) {
-				generalOccurrences.add(entry.getKey() + " - " + entry.getValue() + " times");
-			}
-	
-			this.generalOccurrences.setItems(generalOccurrences);
+		totalLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalLines));
+		totalWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalWords));
+		totalTypes.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalTypes));
+		totalTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.totalTTR));
+
+		meanLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanLines));
+		meanWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanWords));
+		meanTypes.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanTypes));
+		meanTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.meanTTR));
+
+		medianLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianLines));
+		medianWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianWords));
+		medianTypes.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianTypes));
+		medianTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.medianTTR));
+
+		modeLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeLines));
+		modeWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeWords));
+		modeTypes.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeTypes));
+		modeTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.modeTTR));
+
+		sdLines.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdLines));
+		sdWords.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdWords));
+		sdTypes.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdTypes));
+		sdTTR.setText(String.format(FORMAT, Analyzer.getInstance().generalMeasurements.sdTTR));
+
+		ObservableList<String> generalOccurrences = FXCollections.observableArrayList();
+		for (Map.Entry<String, Integer> entry : Analyzer.getInstance().generalMeasurements.occurrences.entrySet()) {
+			generalOccurrences.add(entry.getKey() + " - " + entry.getValue() + " times");
+		}
+
+		this.generalOccurrences.setItems(generalOccurrences);
 
 		// Production Tab
 
-			// Fill productions ComboBox
-			ObservableList<Production> options = FXCollections.observableArrayList(productions);
-	
-			productionComboBox.setItems(options);
-	
-			// Listener to the ComboBox
-			productionComboBox.valueProperty().addListener(new ComboBoxListener());
-			productionComboBox.setValue(productions.get(0));
+		// Fill productions ComboBox
+		ObservableList<Production> options = FXCollections.observableArrayList(productions);
+
+		productionComboBox.setItems(options);
+
+		// Listener to the ComboBox
+		productionComboBox.valueProperty().addListener(new ComboBoxListener());
+		productionComboBox.setValue(productions.get(0));
 
 		// Graphs ScrollPane
-			graphsPane.setContent((new ResultsGraphsFrame()).getAnchorPane());
+		graphsPane.setContent((new ResultsGraphsFrame()).getAnchorPane());
 
-			
 		// Reports ScrollPane
-			reportsPane.setContent((new ResultsReportsFrame()).getAnchorPane());
+		reportsPane.setContent((new ResultsReportsFrame()).getAnchorPane());
 	}
 
 	@FXML

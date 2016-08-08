@@ -36,11 +36,12 @@
                           <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Number of Lines:" GridPane.rowIndex="1">
+                              <Label text="Number of Lines:" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
@@ -48,12 +49,12 @@
                                     <Insets right="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Number of Words:" GridPane.rowIndex="2">
+                              <Label text="Number of Words:" GridPane.rowIndex="1">
                                  <padding>
                                     <Insets right="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="TTR:" GridPane.rowIndex="3">
+                              <Label text="TTR:" GridPane.rowIndex="4">
                                  <padding>
                                     <Insets right="5.0" />
                                  </padding>
@@ -63,21 +64,27 @@
                               <Label text="Median" GridPane.columnIndex="3" />
                               <Label text="Mode" GridPane.columnIndex="4" />
                               <Label text="SD" GridPane.columnIndex="5" />
-                              <Label fx:id="totalLines" text="TotalLines" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="totalWords" text="TotalWords" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="meanLines" text="MeanLines" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <Label fx:id="medianLines" text="MedianLines" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <Label fx:id="modeLines" text="ModeLines" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                              <Label fx:id="sdLines" text="SDLines" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                              <Label fx:id="totalTTR" text="TotalTTR" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label fx:id="meanWords" text="MeanWords" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <Label fx:id="meanTTR" text="MeanTTR" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                              <Label fx:id="medianWords" text="MedianWords" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                              <Label fx:id="medianTTR" text="MedianTTR" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                              <Label fx:id="modeWords" text="ModeWords" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                              <Label fx:id="sdWords" text="SDWords" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                              <Label fx:id="modeTTR" text="ModeTTR" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                              <Label fx:id="sdTTR" text="SDTTR" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                              <Label fx:id="totalLines" text="TotalLines" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="totalWords" text="TotalWords" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="meanLines" text="MeanLines" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <Label fx:id="medianLines" text="MedianLines" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <Label fx:id="modeLines" text="ModeLines" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                              <Label fx:id="sdLines" text="SDLines" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                              <Label fx:id="totalTTR" text="TotalTTR" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="meanWords" text="MeanWords" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label fx:id="meanTTR" text="MeanTTR" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <Label fx:id="medianWords" text="MedianWords" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Label fx:id="medianTTR" text="MedianTTR" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                              <Label fx:id="modeWords" text="ModeWords" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <Label fx:id="sdWords" text="SDWords" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                              <Label fx:id="modeTTR" text="ModeTTR" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                              <Label fx:id="sdTTR" text="SDTTR" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                              <Label text="Number of Types:" GridPane.rowIndex="2" />
+                              <Label fx:id="totalTypes" text="TotalTypes" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="meanTypes" text="MeanTypes" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Label fx:id="medianTypes" text="MedianTypes" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <Label fx:id="modeTypes" text="ModeTypes" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                              <Label fx:id="sdTypes" text="SDTypes" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                            </children>
                            <padding>
                               <Insets right="5.0" />

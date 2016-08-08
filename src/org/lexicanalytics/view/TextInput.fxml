@@ -27,8 +27,8 @@
             <TextArea fx:id="text" prefHeight="356.0" prefWidth="660.0" />
             <VBox alignment="CENTER" prefHeight="460.0" prefWidth="75.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#next" prefHeight="40.0" prefWidth="55.0" text="Next" />
-                  <Button mnemonicParsing="false" onAction="#clean" prefHeight="40.0" prefWidth="55.0" text="Clean">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#next" prefHeight="40.0" prefWidth="55.0" text="Next" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clean" prefHeight="40.0" prefWidth="55.0" text="Clean">
                      <VBox.margin>
                         <Insets bottom="30.0" top="30.0" />
                      </VBox.margin>

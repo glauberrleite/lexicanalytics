@@ -76,20 +76,24 @@ public class Analyzer {
 		List<Float> linesList = new ArrayList<Float>();
 		List<Float> wordsList = new ArrayList<Float>();
 		List<Float> ttrList = new ArrayList<Float>();
+		List<Float> typesList = new ArrayList<Float>();
 
 		for (Production production : productions.listAll()) {
 			linesList.add((float) production.getNumberOfLines());
 			wordsList.add((float) production.getNumberOfWords());
+			typesList.add((float) production.getNumberOfTypes());
 			ttrList.add(production.getTtr());
 
 			// Total metrics
 			generalMeasurements.totalLines += production.getNumberOfLines();
 			generalMeasurements.totalWords += production.getNumberOfWords();
+			generalMeasurements.totalTypes += production.getNumberOfTypes();
 			generalMeasurements.totalTTR += production.getTtr();
 
 			// Mean metrics
 			generalMeasurements.meanLines += ((float) production.getNumberOfLines() / productions.size());
 			generalMeasurements.meanWords += ((float) production.getNumberOfWords() / productions.size());
+			generalMeasurements.meanTypes += ((float) production.getNumberOfTypes() / productions.size());
 			generalMeasurements.meanTTR += ((float) production.getTtr() / productions.size());
 
 			// Occurrences Metrics
@@ -110,22 +114,26 @@ public class Analyzer {
 		// First the sum deviations
 		for (Production production : productions.listAll()) {
 			generalMeasurements.sdWords += Math.pow(production.getNumberOfWords() - generalMeasurements.meanWords, 2);
+			generalMeasurements.sdTypes += Math.pow(production.getNumberOfTypes() - generalMeasurements.meanTypes, 2);
 			generalMeasurements.sdLines += Math.pow(production.getNumberOfLines() - generalMeasurements.meanLines, 2);
 			generalMeasurements.sdTTR += Math.pow(production.getTtr() - generalMeasurements.meanTTR, 2);
 		}
 
 		// Then the standard deviation
 		generalMeasurements.sdWords = (float) Math.sqrt((generalMeasurements.sdWords) / productions.size());
+		generalMeasurements.sdTypes = (float) Math.sqrt((generalMeasurements.sdTypes) / productions.size());
 		generalMeasurements.sdLines = (float) Math.sqrt((generalMeasurements.sdLines) / productions.size());
 		generalMeasurements.sdTTR = (float) Math.sqrt((generalMeasurements.sdTTR) / productions.size());
 
 		// Finding the medians
 		generalMeasurements.medianWords = calculateMedian(wordsList);
+		generalMeasurements.medianTypes = calculateMedian(typesList);
 		generalMeasurements.medianLines = calculateMedian(linesList);
 		generalMeasurements.medianTTR = calculateMedian(ttrList);
 
 		// Calculating mode
 		generalMeasurements.modeWords = calculateMode(wordsList);
+		generalMeasurements.modeTypes = calculateMode(typesList);
 		generalMeasurements.modeLines = calculateMode(linesList);
 		generalMeasurements.modeTTR = calculateMode(ttrList);
 
