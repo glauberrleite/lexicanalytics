@@ -11,14 +11,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
+/**
+ * 
+ * @author glauberrleite
+ *
+ */
 public class ResultsReportsController extends BaseController implements Initializable {
+
+	private final String FORMAT = "%.2f";
 
 	@FXML
 	private Label highestWords;
 
 	@FXML
 	private Label highestLines;
-	
+
 	@FXML
 	private Label highestTypes;
 
@@ -30,7 +37,7 @@ public class ResultsReportsController extends BaseController implements Initiali
 
 	@FXML
 	private Label lowestLines;
-	
+
 	@FXML
 	private Label lowestTypes;
 
@@ -69,7 +76,7 @@ public class ResultsReportsController extends BaseController implements Initiali
 			}
 			if (production.getTtr() > topTTR) {
 				topTTR = production.getTtr();
-				highestTTR.setText(production.toString() + " - " + production.getTtr() + " %");
+				highestTTR.setText(production.toString() + " - " + String.format(FORMAT, production.getTtr()) + "%");
 			}
 
 			// As words and lines are measurements that, in theory, can reach
@@ -90,7 +97,7 @@ public class ResultsReportsController extends BaseController implements Initiali
 			}
 			if (production.getTtr() < lowTTR) {
 				lowTTR = production.getTtr();
-				lowestTTR.setText(production.toString() + " - " + production.getTtr() + " %");
+				lowestTTR.setText(production.toString() + " - " + String.format(FORMAT, production.getTtr()) + "%");
 			}
 
 		}

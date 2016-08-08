@@ -29,6 +29,11 @@ import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author glauberrleite
+ *
+ */
 public class ResultsGraphsController extends BaseController implements Initializable {
 
 	private List<Production> productions;
